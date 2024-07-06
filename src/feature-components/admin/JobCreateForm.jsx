@@ -1,126 +1,252 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createJob } from "@/lib/services/api/jobs";
+import { formatDate } from "date-fns";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Separator } from "@/components/ui/separator";
 
-const initialState = {
-  title: "",
-  description: "",
-  type: "",
-  location: "",
-  question1: "",
-  question2: "",
-  question3: "",
-};
+const jobFormSchema = z.object({
+  company: z.string().min(1, "Company name is required"),
+  title: z.string().min(1, "Job title is required"),
+  description: z.string().min(1, "Job description is required"),
+  type: z.string().min(1, "Job type not selected"),
+  location: z.string().min(1, "Location is required"),
+  question1: z.string().min(1, "Question1 is required"),
+  question2: z.string().min(1, "Question2 is required"),
+  question3: z.string().min(1, "Question3 is required"),
+});
 
 function JobCreateForm() {
-  const [formData, setFormData] = useState(initialState);
   const navigate = useNavigate();
+  const form = useForm({
+    resolver: zodResolver(jobFormSchema),
+    defaultValues: {
+      company: "",
+      title: "",
+      description: "",
+      type: "",
+      location: "",
+      question1: "",
+      question2: "",
+      question3: "",
+    },
+  });
 
-  function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
+  async function onSubmit(data) {
     await createJob({
-      title: formData.title,
-      type: formData.type,
-      description: formData.description,
-      location: formData.location,
-      questions: [formData.question1, formData.question2, formData.question3],
+      company: data.company,
+      title: data.title,
+      type: data.type,
+      description: data.description,
+      location: data.location,
+      questions: [data.question1, data.question2, data.question3],
+      posted: formatDate(new Date(), "dd/MM/yyyy"),
     });
-
-    setFormData(initialState);
+    // setFormData(initialState);
     navigate("/admin/jobs");
   }
 
   return (
-    <form className="py-8" onSubmit={handleSubmit}>
-      <div>
-        <h3>Title</h3>
-        <Input
-          className="mt-2"
+    <Form {...form}>
+      <form className="py-8" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="company"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                <h3>Company</h3>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="mt-2 h-10"
+                  placeholder="ABC Company pvt Ltd"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
+          render={({ field }) => (
+            <FormItem className="mt-6">
+              <FormLabel>
+                <h3>Title</h3>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="mt-2 h-10"
+                  placeholder="Software Engineer"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
 
-      <div className="mt-4">
-        <h3>Description</h3>
-        <Textarea
-          className="mt-2"
+        <FormField
+          control={form.control}
           name="description"
-          value={formData.description}
-          onChange={handleChange}
-          required
+          render={({ field }) => (
+            <FormItem className="mt-6">
+              <FormLabel>
+                <h3>Description</h3>
+              </FormLabel>
+              <FormControl>
+                <Textarea
+                  className="mt-2 h-10"
+                  placeholder="We are looking for a highly skilled and experienced Software Engineer to join our dynamic team..."
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
 
-      <div className="mt-4">
-        <h3>Type</h3>
-        <Textarea
-          className="mt-2"
-          name="type"
-          value={formData.type}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div className="mt-2 grid grid-cols-2 gap-x-5">
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem className="mt-6">
+                <FormLabel>
+                  <h3>Location</h3>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="mt-2 h-10"
+                    {...field}
+                    placeholder="Colombo, Sri Lanka"
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-      <div className="mt-4">
-        <h3>Location</h3>
-        <Textarea
-          className="mt-2"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          required
-        />
-      </div>
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem className="mt-6">
+                <FormLabel>
+                  <h3>Type</h3>
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="mt-2 h-10" id="type">
+                      <SelectValue placeholder="Select a job type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Full-time">Full-time</SelectItem>
+                    <SelectItem value="Part-time">Part-time</SelectItem>
+                    <SelectItem value="Contract-based">
+                      Contract-based
+                    </SelectItem>
+                    <SelectItem value="Project-based">Project-based</SelectItem>
+                    <SelectItem value="Internship">Internship</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-      <div className="mt-4">
-        <h3>Question 1</h3>
-        <Textarea
-          className="mt-2"
+        <Separator className="mt-14 mb-20" />
+
+        <FormField
+          control={form.control}
           name="question1"
-          value={formData.question1}
-          onChange={handleChange}
-          required
+          render={({ field }) => (
+            <FormItem className="mt-6">
+              <FormLabel>
+                <h3>Question 1</h3>
+              </FormLabel>
+              <FormControl>
+                <Textarea className="mt-2 h-10" {...field} />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className="mt-4">
-        <h3>Question 2</h3>
-        <Textarea
-          className="mt-2"
+
+        <FormField
+          control={form.control}
           name="question2"
-          value={formData.question2}
-          onChange={handleChange}
-          required
+          render={({ field }) => (
+            <FormItem className="mt-6">
+              <FormLabel>
+                <h3>Question 2</h3>
+              </FormLabel>
+              <FormControl>
+                <Textarea className="mt-2 h-10" {...field} />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
 
-      <div className="mt-4">
-        <h3>Question 3</h3>
-        <Textarea
-          className="mt-2"
+        <FormField
+          control={form.control}
           name="question3"
-          value={formData.question3}
-          onChange={handleChange}
-          required
+          render={({ field }) => (
+            <FormItem className="mt-6">
+              <FormLabel>
+                <h3>Question 3</h3>
+              </FormLabel>
+              <FormControl>
+                <Textarea className="mt-2 h-10" {...field} />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
 
-      <Button type="submit" className="mt-8 bg-card text-card-foreground">
-        Submit
-      </Button>
-    </form>
+        <Button type="submit" className="mt-8 bg-card text-card-foreground">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
 }
 

@@ -30,6 +30,9 @@ function JobApplicationView() {
           >
             {jobApplication?.rating}
           </Badge>
+          <span className="px-4 ml-auto">
+            Sumbitted on: {jobApplication?.submitted}
+          </span>
         </CardHeader>
       </Card>
 
@@ -38,10 +41,12 @@ function JobApplicationView() {
           return <p key={i}>{answer}</p>;
         })}
       </Card>
-      <div>
-        <Button variant="link" asChild>
-          <Link to={"/admin/jobs"}>Back</Link>
-        </Button>
+      <div className="flex items-center justify-between">
+        <div>
+          <Button variant="link" asChild>
+            <Link to={"/admin/jobs"}>Back</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

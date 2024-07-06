@@ -17,11 +17,13 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // };
 
 export const createJob = async ({
+  company,
   title,
   description,
   type,
   location,
   questions,
+  posted,
 }) => {
   const token = await window.Clerk.session?.getToken();
 
@@ -32,11 +34,13 @@ export const createJob = async ({
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
+      company,
       title,
       description,
       type,
       location,
       questions,
+      posted,
     }),
   });
 };

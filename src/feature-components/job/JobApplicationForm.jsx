@@ -1,48 +1,64 @@
-import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
+import { formatDate } from "date-fns";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import useFetchJobById from "../../hooks/useFetchJobById";
 
-import FormFieldLabel from "../../components/shared/FormFieldLabel";
+import { createJobApplication } from "@/lib/services/api/jobApplications";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { Briefcase, MapPin } from "lucide-react";
+import { Briefcase, CalendarDays, MapPin } from "lucide-react";
 import Spinner from "@/components/shared/Spinner";
-import { createJobApplication } from "@/lib/services/api/jobApplications";
+import SubInfoTag from "@/components/shared/SubInfoTag";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
-const initialState = {
-  fullName: "",
-  answer1: "",
-  answer2: "",
-  answer3: "",
-};
+const jobApplycationFormSchema = z.object({
+  fullName: z.string().min(1, "Name is required"),
+  answer1: z.string().min(1, "Question1 is required"),
+  answer2: z.string().min(1, "Question2 is required"),
+  answer3: z.string().min(1, "Question3 is required"),
+});
 
 function JobApplicationForm() {
-  // const [fullName, setFullName] = useState("");
-  // const [answer1, setAnswer1] = useState("");
-  // const [answer2, setAnswer2] = useState("");
-  // const [answer3, setAnswer3] = useState("");
-
-  const [formData, setFormData] = useState(initialState);
-  const { fullName, answer1, answer2, answer3 } = formData;
+  // const [formData, setFormData] = useState(initialState);
+  // const { fullName, answer1, answer2, answer3 } = formData;
   const params = useParams();
   const { job, isLoading } = useFetchJobById();
   const { user, isSignedIn, isLoaded } = useUser();
-
   const navigate = useNavigate();
+  const form = useForm({
+    resolver: zodResolver(jobApplycationFormSchema),
+    defaultValues: {
+      fullName: "",
+      answer1: "",
+      answer2: "",
+      answer3: "",
+    },
+  });
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    // console.log(formData);
+  function onSubmit(data) {
+    // console.log(data);
+
     createJobApplication({
       userId: user?.id,
-      fullName: formData.fullName,
-      answers: [formData.answer1, formData.answer2, formData.answer3],
+      fullName: data.fullName,
+      answers: [data.answer1, data.answer2, data.answer3],
       job: params.id,
+      submitted: formatDate(new Date(), "dd/MM/yyyy"),
     });
-    setFormData(initialState);
+    // setFormData(initialState);
     navigate("/");
   }
 
@@ -56,79 +72,121 @@ function JobApplicationForm() {
     <div>
       <div>
         <h2>{job?.title}</h2>
+        <span className="mx-2 text-sm">{job?.company}</span>
         <div className="flex items-center gap-x-4 mt-4">
-          <div className="flex items-center gap-x-2">
-            <Briefcase />
-            <span>{job?.type}</span>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <MapPin /> <span>{job?.location}</span>
+          <SubInfoTag icon={<Briefcase />} label={job?.type} />
+          <SubInfoTag icon={<MapPin />} label={job?.location} />
+
+          <div className="flex items-center gap-2 ml-auto">
+            <span>Posted on:</span>
+            <SubInfoTag icon={<CalendarDays />} label={job?.posted} />
           </div>
         </div>
       </div>
 
-      <div className="mt-4 py-4">
+      <div className="mt-8 py-4">
         <p>{job?.description}</p>
       </div>
       <Separator />
 
-      <form className="py-8 flex flex-col gap-y-8" onSubmit={handleSubmit}>
-        <FormFieldLabel label="Full Name">
-          <Input
-            required
-            value={fullName}
-            onChange={(e) =>
-              setFormData({ ...formData, fullName: e.target.value })
-            }
+      <Form {...form}>
+        <form
+          className="py-8 flex flex-col gap-y-8"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                  <Input
+                    className="mt-2 h-10"
+                    placeholder="John Smith"
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </FormFieldLabel>
 
-        <FormFieldLabel label={job?.questions?.at(0)}>
-          <Textarea
-            required
-            value={answer1}
-            onChange={(e) =>
-              setFormData({ ...formData, answer1: e.target.value })
-            }
+          <FormField
+            control={form.control}
+            name="answer1"
+            render={({ field }) => (
+              <FormItem className="mt-2">
+                <FormLabel>{job?.questions?.at(0)}</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="mt-2 h-10"
+                    placeholder="Your answer..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </FormFieldLabel>
 
-        <FormFieldLabel label={job?.questions?.at(1)}>
-          <Textarea
-            required
-            value={answer2}
-            onChange={(e) =>
-              setFormData({ ...formData, answer2: e.target.value })
-            }
+          <FormField
+            control={form.control}
+            name="answer2"
+            render={({ field }) => (
+              <FormItem className="mt-2">
+                <FormLabel>{job?.questions?.at(1)}</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="mt-2 h-10"
+                    placeholder="Your answer..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </FormFieldLabel>
 
-        <FormFieldLabel label={job?.questions?.at(2)}>
-          <Textarea
-            required
-            value={answer3}
-            onChange={(e) =>
-              setFormData({ ...formData, answer3: e.target.value })
-            }
+          <FormField
+            control={form.control}
+            name="answer3"
+            render={({ field }) => (
+              <FormItem className="mt-2">
+                <FormLabel>{job?.questions?.at(2)}</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="mt-2 h-10"
+                    placeholder="Your answer..."
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </FormFieldLabel>
 
-        <div className="flex items-center gap-x-4">
-          <Button
-            type="submit"
-            className="mt-8 bg-card text-card-foreground w-fit"
-          >
-            Submit
-          </Button>
-          <Button
-            className="mt-8   w-fit "
-            variant="outline"
-            onClick={() => setFormData(initialState)}
-          >
-            Cancel
-          </Button>
-        </div>
-      </form>
+          <div className="flex items-center gap-x-4">
+            <Button
+              type="submit"
+              className="mt-8 bg-card text-card-foreground w-fit"
+            >
+              Submit
+            </Button>
+            <Button
+              className="mt-8 w-fit "
+              variant="outline"
+              onClick={() => {}}
+            >
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

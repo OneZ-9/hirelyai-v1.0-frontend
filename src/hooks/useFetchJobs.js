@@ -12,6 +12,7 @@ export default function useFetchJobs() {
       try {
         setIsLoading(true);
         // setError("");
+
         const res = await fetch(`${baseUrl}/jobs`, {
           method: "GET",
         });

@@ -1,3 +1,5 @@
+import SubInfoTag from "@/components/shared/SubInfoTag";
+
 import {
   Card,
   CardContent,
@@ -5,10 +7,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Briefcase, MapPin } from "lucide-react";
+import { Briefcase, CalendarDays, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function JobCard({ job, isAdmin }) {
+  // console.log(isAdmin);
   return (
     <Link
       to={isAdmin ? `/admin/job/${job._id}` : `/job/${job._id}`}
@@ -17,15 +20,16 @@ function JobCard({ job, isAdmin }) {
       <Card>
         <CardHeader>
           <CardTitle>{job.title}</CardTitle>
+          <span className="mx-2 text-sm">{job.company}</span>
         </CardHeader>
         <CardContent></CardContent>
-        <CardFooter className="gap-x-4">
-          <div className="flex items-center gap-x-2">
-            <Briefcase />
-            <span>{job.type}</span>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <MapPin /> <span>{job.location}</span>
+        <CardFooter className="flex items-cente gap-x-4 ">
+          <SubInfoTag icon={<Briefcase />} label={job.type} />
+          <SubInfoTag icon={<MapPin />} label={job.location} />
+
+          <div className="flex items-center gap-2 ml-auto">
+            <span>Posted on:</span>
+            <SubInfoTag icon={<CalendarDays />} label={job.posted} />
           </div>
         </CardFooter>
       </Card>
