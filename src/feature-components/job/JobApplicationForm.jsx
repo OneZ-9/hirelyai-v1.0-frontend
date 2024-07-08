@@ -206,7 +206,7 @@ function JobApplicationForm() {
                   />
                 </FormControl>
                 <FormDescription>
-                  *only accept pdf format and maximum file size 10mb.
+                  *only accept pdf format and maximum file size 10MB.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
