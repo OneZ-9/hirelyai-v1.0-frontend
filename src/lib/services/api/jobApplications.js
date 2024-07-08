@@ -1,16 +1,17 @@
 // const URL = import.meta.env.BASE_URL;
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-export async function createJobApplication(jobApplication) {
+export async function createJobApplication(formData) {
   const token = await window.Clerk.session?.getToken();
 
   await fetch(`${baseUrl}/jobApplications`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      // "Content-Type": "application/json",
+      // "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(jobApplication),
+    body: formData,
   });
 }
 

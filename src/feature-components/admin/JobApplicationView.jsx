@@ -11,6 +11,14 @@ function JobApplicationView() {
   const { jobApplication, isLoadingJobApplication } =
     useFetchJobApplicationById();
 
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    // data:[<MIME-type>];base64,[<base64-data>] Tells the browser that the data should be treated as a file of the specified type.
+    link.href = `data:${jobApplication.resume.contentType};base64,${jobApplication.resume.data}`;
+    link.download = jobApplication.resume.originalName || "resume.pdf";
+    link.click();
+  };
+
   if (isLoadingJobApplication) return <Spinner />;
 
   return (
@@ -43,6 +51,7 @@ function JobApplicationView() {
       </Card>
       <div className="flex items-center justify-between">
         <div>
+          <Button onClick={handleDownload}>Download Resume</Button>
           <Button variant="link" asChild>
             <Link to={"/admin/jobs"}>Back</Link>
           </Button>

@@ -29,11 +29,12 @@ const jobApplycationFormSchema = z.object({
   answer1: z.string().min(1, "Question1 is required"),
   answer2: z.string().min(1, "Question2 is required"),
   answer3: z.string().min(1, "Question3 is required"),
+  resume: z.instanceof(FileList).refine((files) => files.length > 0, {
+    message: "A resume file is required",
+  }),
 });
 
 function JobApplicationForm() {
-  // const [formData, setFormData] = useState(initialState);
-  // const { fullName, answer1, answer2, answer3 } = formData;
   const params = useParams();
   const { job, isLoading } = useFetchJobById();
   const { user, isSignedIn, isLoaded } = useUser();
@@ -45,19 +46,39 @@ function JobApplicationForm() {
       answer1: "",
       answer2: "",
       answer3: "",
+      resume: null,
     },
   });
 
   function onSubmit(data) {
     // console.log(data);
 
-    createJobApplication({
-      userId: user?.id,
-      fullName: data.fullName,
-      answers: [data.answer1, data.answer2, data.answer3],
-      job: params.id,
-      submitted: formatDate(new Date(), "dd/MM/yyyy"),
-    });
+    if (data.resume[0].size > 10 * 1024 * 1024) {
+      alert("File size exceeds the 10MB limit.");
+      return;
+    }
+
+    // Cannot directly pass a object to createJobApplication()  with binary data
+    // Use built-in FormData()
+    const formData = new FormData();
+
+    formData.append("userId", user?.id);
+    formData.append("fullName", data.fullName);
+    formData.append(
+      "answers",
+      JSON.stringify([data.answer1, data.answer2, data.answer3])
+    );
+    formData.append("resume", data.resume[0]); // Add the resume file
+    formData.append("job", params.id);
+    formData.append("submitted", formatDate(new Date(), "dd/MM/yyyy"));
+
+    // Log FormData contents for debugging
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+
+    createJobApplication(formData);
+
     // setFormData(initialState);
     navigate("/");
   }
@@ -165,6 +186,28 @@ function JobApplicationForm() {
                   />
                 </FormControl>
                 <FormDescription />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="resume"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Upload resume</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    accept=".pdf"
+                    className="mt-2 h-10 w-auto"
+                    onChange={(e) => field.onChange(e.target.files)}
+                  />
+                </FormControl>
+                <FormDescription>
+                  *only accept pdf format and maximum file size 10mb.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
