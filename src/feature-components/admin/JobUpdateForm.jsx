@@ -46,8 +46,8 @@ function JobUpdateForm() {
   const form = useForm({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
-      company: "",
       title: "",
+      company: "",
       description: "",
       type: "",
       location: "",
@@ -60,8 +60,8 @@ function JobUpdateForm() {
   useEffect(() => {
     if (job) {
       form.reset({
-        company: job.company,
         title: job.title,
+        company: job.company,
         description: job.description,
         type: job.type,
         location: job.location,
@@ -75,8 +75,8 @@ function JobUpdateForm() {
   async function onSubmit(data) {
     await updateJob({
       _id: job._id,
-      company: data.company,
       title: data.title,
+      company: data.company,
       type: data.type,
       description: data.description,
       location: data.location,
@@ -84,7 +84,7 @@ function JobUpdateForm() {
       posted: job.posted,
     });
     // setFormData(initialState);
-    navigate("/admin/jobs");
+    navigate("/admin/jobs", { replace: true });
   }
 
   if (isLoading) return <Spinner />;
@@ -92,27 +92,6 @@ function JobUpdateForm() {
   return (
     <Form {...form}>
       <form className="py-8" onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="company"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                <h3>Company</h3>
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="mt-2 h-10"
-                  placeholder="ABC Company pvt Ltd"
-                  {...field}
-                />
-              </FormControl>
-              <FormDescription />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="title"
@@ -125,6 +104,27 @@ function JobUpdateForm() {
                 <Input
                   className="mt-2 h-10"
                   placeholder="Software Engineer"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="company"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                <h3>Company</h3>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="mt-2 h-10"
+                  placeholder="ABC Company pvt Ltd"
                   {...field}
                 />
               </FormControl>

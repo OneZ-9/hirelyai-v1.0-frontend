@@ -27,8 +27,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 const jobFormSchema = z.object({
-  company: z.string().min(1, "Company name is required"),
   title: z.string().min(1, "Job title is required"),
+  company: z.string().min(1, "Company name is required"),
   description: z.string().min(1, "Job description is required"),
   type: z.string().min(1, "Job type not selected"),
   location: z.string().min(1, "Location is required"),
@@ -42,8 +42,8 @@ function JobCreateForm() {
   const form = useForm({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
-      company: "",
       title: "",
+      company: "",
       description: "",
       type: "",
       location: "",
@@ -55,8 +55,8 @@ function JobCreateForm() {
 
   async function onSubmit(data) {
     await createJob({
-      company: data.company,
       title: data.title,
+      company: data.company,
       type: data.type,
       description: data.description,
       location: data.location,
@@ -72,16 +72,16 @@ function JobCreateForm() {
       <form className="py-8" onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="company"
+          name="title"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-6">
               <FormLabel>
-                <h3>Company</h3>
+                <h3>Title</h3>
               </FormLabel>
               <FormControl>
                 <Input
                   className="mt-2 h-10"
-                  placeholder="ABC Company pvt Ltd"
+                  placeholder="Software Engineer"
                   {...field}
                 />
               </FormControl>
@@ -93,16 +93,16 @@ function JobCreateForm() {
 
         <FormField
           control={form.control}
-          name="title"
+          name="company"
           render={({ field }) => (
-            <FormItem className="mt-6">
+            <FormItem>
               <FormLabel>
-                <h3>Title</h3>
+                <h3>Company</h3>
               </FormLabel>
               <FormControl>
                 <Input
                   className="mt-2 h-10"
-                  placeholder="Software Engineer"
+                  placeholder="ABC Company pvt Ltd"
                   {...field}
                 />
               </FormControl>
@@ -188,9 +188,7 @@ function JobCreateForm() {
             )}
           />
         </div>
-
         <Separator className="mt-14 mb-20" />
-
         <FormField
           control={form.control}
           name="question1"
@@ -207,7 +205,6 @@ function JobCreateForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="question2"
@@ -224,7 +221,6 @@ function JobCreateForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="question3"
@@ -241,7 +237,6 @@ function JobCreateForm() {
             </FormItem>
           )}
         />
-
         <Button type="submit" className="mt-8 bg-card text-card-foreground">
           Submit
         </Button>

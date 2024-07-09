@@ -9,11 +9,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { deleteJob } from "@/lib/services/api/jobs";
 import { Briefcase, CalendarDays, MapPin, Pencil, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function JobCard({ job, isAdmin }) {
+  const navigate = useNavigate();
   // console.log(isAdmin);
+
   return (
     <div className="relative">
       {!isAdmin && (
@@ -24,7 +27,13 @@ function JobCard({ job, isAdmin }) {
       )}
       {isAdmin && (
         <>
-          <IconButton className="absolute text-primary-foreground top-5 right-4">
+          <IconButton
+            className="absolute text-primary-foreground top-5 right-4"
+            onClick={() => {
+              deleteJob(job._id);
+              navigate(0);
+            }}
+          >
             <Trash2 className="w-5 h-5" />
           </IconButton>
 

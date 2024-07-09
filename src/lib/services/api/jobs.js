@@ -17,8 +17,8 @@ const baseUrl = import.meta.env.VITE_BASE_URL;
 // };
 
 export const createJob = async ({
-  company,
   title,
+  company,
   description,
   type,
   location,
@@ -34,8 +34,8 @@ export const createJob = async ({
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      company,
       title,
+      company,
       description,
       type,
       location,
@@ -55,8 +55,8 @@ export const updateJob = async (updatedJob) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      company: updatedJob.company,
       title: updatedJob.title,
+      company: updatedJob.company,
       description: updatedJob.description,
       type: updatedJob.type,
       location: updatedJob.location,
@@ -64,4 +64,25 @@ export const updateJob = async (updatedJob) => {
       posted: updatedJob.posted,
     }),
   });
+};
+
+export const deleteJob = async (jobId) => {
+  const token = await window.Clerk.session?.getToken();
+
+  try {
+    const res = await fetch(`${baseUrl}/jobs/${jobId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+  } catch (error) {
+    console.error("Failed to delete the job:", error);
+    throw error;
+  }
 };
