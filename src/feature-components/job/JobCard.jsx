@@ -1,3 +1,4 @@
+import IconButton from "@/components/shared/IconButton";
 import ShareButton from "@/components/shared/ShareButton";
 import SubInfoTag from "@/components/shared/SubInfoTag";
 
@@ -8,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Briefcase, CalendarDays, MapPin } from "lucide-react";
+import { Briefcase, CalendarDays, MapPin, Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function JobCard({ job, isAdmin }) {
@@ -18,8 +19,21 @@ function JobCard({ job, isAdmin }) {
       {!isAdmin && (
         <ShareButton
           value={`http://localhost:5173/job/${job._id}`}
-          className="absolute text-primary-foreground top-5 right-4 "
+          className="absolute text-primary-foreground top-5 right-4"
         />
+      )}
+      {isAdmin && (
+        <>
+          <IconButton className="absolute text-primary-foreground top-5 right-4">
+            <Trash2 className="w-5 h-5" />
+          </IconButton>
+
+          <Link to={`/admin/job/update/${job._id}`}>
+            <IconButton className="absolute text-primary-foreground top-5 right-14">
+              <Pencil className="w-5 h-5" />
+            </IconButton>
+          </Link>
+        </>
       )}
 
       <Link

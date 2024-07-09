@@ -15,6 +15,7 @@ import AdminJobCreatePage from "./pages/admin/admin-job-create.page";
 import AdminJobPostsPage from "./pages/admin/admin-job-posts.page";
 import AdminJobPage from "./pages/admin/admin-job.page";
 import AdminJobApplicationPage from "./pages/admin/admin-job-application.page";
+import AdminJobUpdatePage from "./pages/admin/admin-job-update.page";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
           {
             path: "job/create",
             element: <AdminJobCreatePage />,
+          },
+          {
+            path: "job/update/:id",
+            element: <AdminJobUpdatePage />,
           },
           {
             path: "job/:id",

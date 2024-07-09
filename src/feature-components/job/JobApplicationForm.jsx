@@ -23,6 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useEffect } from "react";
 
 const jobApplycationFormSchema = z.object({
   fullName: z.string().min(1, "Name is required"),
@@ -51,8 +52,6 @@ function JobApplicationForm() {
   });
 
   function onSubmit(data) {
-    // console.log(data);
-
     if (data.resume[0].size > 10 * 1024 * 1024) {
       alert("File size exceeds the 10MB limit.");
       return;
@@ -81,6 +80,16 @@ function JobApplicationForm() {
 
     // setFormData(initialState);
     navigate("/");
+  }
+
+  function onClear() {
+    form.reset({
+      fullName: "",
+      answer1: "",
+      answer2: "",
+      answer3: "",
+      resume: null,
+    });
   }
 
   if (isLoading || !isLoaded) return <Spinner />;
@@ -220,11 +229,7 @@ function JobApplicationForm() {
             >
               Submit
             </Button>
-            <Button
-              className="mt-8 w-fit "
-              variant="outline"
-              onClick={() => {}}
-            >
+            <Button className="mt-8 w-fit" variant="outline" onClick={onClear}>
               Cancel
             </Button>
           </div>

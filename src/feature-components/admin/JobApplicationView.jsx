@@ -44,18 +44,16 @@ function JobApplicationView() {
         </CardHeader>
       </Card>
 
-      <Card className="p-4">
+      <Card className="py-4 px-8">
         {jobApplication?.answers?.map((answer, i) => {
           return <p key={i}>{answer}</p>;
         })}
       </Card>
-      <div className="flex items-center justify-between">
-        <div>
-          <Button onClick={handleDownload}>Download Resume</Button>
-          <Button variant="link" asChild>
-            <Link to={"/admin/jobs"}>Back</Link>
-          </Button>
-        </div>
+      <div className="flex items-center gap-2">
+        <Button onClick={handleDownload}>Download Resume</Button>
+        <Button variant="link" asChild>
+          <Link to={"/admin/jobs"}>Back</Link>
+        </Button>
       </div>
     </div>
   );

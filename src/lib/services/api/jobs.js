@@ -44,3 +44,24 @@ export const createJob = async ({
     }),
   });
 };
+
+export const updateJob = async (updatedJob) => {
+  const token = await window.Clerk.session?.getToken();
+
+  await fetch(`${baseUrl}/jobs/${updatedJob._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      company: updatedJob.company,
+      title: updatedJob.title,
+      description: updatedJob.description,
+      type: updatedJob.type,
+      location: updatedJob.location,
+      questions: updatedJob.questions,
+      posted: updatedJob.posted,
+    }),
+  });
+};

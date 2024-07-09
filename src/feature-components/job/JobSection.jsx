@@ -7,8 +7,8 @@ import Spinner from "@/components/shared/Spinner";
 function JobSection() {
   const { jobs, isLoading } = useFetchJobs();
   const { user } = useUser();
-  const isAdmin = user?.publicMetadata?.role !== "admin";
-  // console.log(isAdmin);
+  const isAdmin = user?.publicMetadata?.role === "admin";
+  console.log(isAdmin);
 
   return (
     <section className="py-8">
