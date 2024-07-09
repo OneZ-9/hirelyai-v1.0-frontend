@@ -10,7 +10,6 @@ function JobPostView() {
   const { job, isLoading } = useFetchJobById();
   const { jobApplications, isLoadingJobApplications } =
     useFetchJobApplicationsByJobId();
-  // console.log(jobApplications);
 
   if (isLoading || isLoadingJobApplications) return <Spinner />;
 

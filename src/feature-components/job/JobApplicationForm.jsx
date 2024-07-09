@@ -26,9 +26,9 @@ import {
 
 const jobApplycationFormSchema = z.object({
   fullName: z.string().min(1, "Name is required"),
-  answer1: z.string().min(1, "Question1 is required"),
-  answer2: z.string().min(1, "Question2 is required"),
-  answer3: z.string().min(1, "Question3 is required"),
+  answer1: z.string().min(1, "Your answer is required"),
+  answer2: z.string().min(1, "Your answer is required"),
+  answer3: z.string().min(1, "Your answer is required"),
   resume: z.instanceof(FileList).refine((files) => files.length > 0, {
     message: "A resume file is required",
   }),
