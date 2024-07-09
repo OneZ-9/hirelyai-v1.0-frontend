@@ -16,6 +16,7 @@ import AdminJobPostsPage from "./pages/admin/admin-job-posts.page";
 import AdminJobPage from "./pages/admin/admin-job.page";
 import AdminJobApplicationPage from "./pages/admin/admin-job-application.page";
 import AdminJobUpdatePage from "./pages/admin/admin-job-update.page";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -81,8 +82,15 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <RouterProvider router={router} />
-    </ClerkProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+        <RouterProvider router={router} />
+      </ClerkProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

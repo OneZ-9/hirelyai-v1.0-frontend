@@ -225,7 +225,9 @@ function JobApplicationForm() {
           <div className="flex items-center gap-x-4">
             <Button
               type="submit"
-              className="mt-8 bg-card text-card-foreground w-fit"
+              variant="default"
+              // className="mt-8 bg-card text-card-foreground w-fit"
+              className="mt-8 w-fit"
             >
               Submit
             </Button>

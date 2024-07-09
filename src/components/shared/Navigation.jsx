@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { ModeToggle } from "@/components/theme/ModeToggle";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 function Navigation() {
@@ -26,6 +27,8 @@ function Navigation() {
             </Button>
           </div>
         </SignedOut>
+
+        <ModeToggle />
       </div>
     </nav>
   );
