@@ -118,3 +118,11 @@
   font-size: 1rem;
   font-weight: 400;
 }
+
+.toastStyles {
+  background-color: var(--card);
+}
+
+.dark .toastStyles {
+  background-color: #fff;
+}

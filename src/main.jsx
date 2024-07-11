@@ -19,16 +19,16 @@ import AdminJobPostsPage from "./pages/admin/admin-job-posts.page";
 import AdminJobPage from "./pages/admin/admin-job.page";
 import AdminJobApplicationPage from "./pages/admin/admin-job-application.page";
 import AdminJobUpdatePage from "./pages/admin/admin-job-update.page";
+import { Toaster } from "react-hot-toast";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { staleTime: 60 * 1000 },
+    queries: { staleTime: 0 },
   },
 });
 
@@ -100,6 +100,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <RouterProvider router={router} />
+          <Toaster
+          // toastOptions={{ style: { backgroundColor: "var(--card)" } }}
+          />
         </QueryClientProvider>
       </ClerkProvider>
     </ThemeProvider>

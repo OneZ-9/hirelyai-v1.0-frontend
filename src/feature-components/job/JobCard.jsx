@@ -10,12 +10,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { deleteJob } from "@/lib/services/api/jobs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Briefcase, CalendarDays, MapPin, Pencil, Trash2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function JobCard({ job, isAdmin }) {
-  const navigate = useNavigate();
-  // console.log(isAdmin);
+  const queryClient = useQueryClient();
+  const { isLoading: isDeleting, mutate: deleteJobFn } = useMutation({
+    mutationFn: deleteJob,
+    onSuccess: () => {
+      toast.success("Job deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  console.log(isAdmin);
 
   return (
     <div className="relative">
@@ -29,10 +40,12 @@ function JobCard({ job, isAdmin }) {
         <>
           <IconButton
             className="absolute text-primary-foreground top-5 right-4"
-            onClick={() => {
-              deleteJob(job._id);
-              navigate(0);
-            }}
+            // onClick={() => {
+            // deleteJob(job._id);
+            //   navigate(0);
+            // }}
+            onClick={() => deleteJobFn(job._id)}
+            disabled={isDeleting}
           >
             <Trash2 className="w-5 h-5" />
           </IconButton>
@@ -52,7 +65,7 @@ function JobCard({ job, isAdmin }) {
         <Card>
           <CardHeader>
             <CardTitle>{job.title}</CardTitle>
-            <span className="mx-2 text-sm">{job.company}</span>{" "}
+            <span className="mx-2 text-sm">{job.company}</span>
           </CardHeader>
           <CardContent></CardContent>
           <CardFooter className="flex items-cente gap-x-4 ">

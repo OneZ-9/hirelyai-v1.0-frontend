@@ -1,14 +1,19 @@
 import { useUser } from "@clerk/clerk-react";
-import useFetchJobs from "../../hooks/useFetchJobs";
+import { useQuery } from "@tanstack/react-query";
+import { getJobs } from "@/lib/services/api/jobs";
 
 import JobCard from "../job/JobCard";
 import Spinner from "@/components/shared/Spinner";
 
 function JobSection() {
-  const { jobs, isLoading } = useFetchJobs();
   const { user } = useUser();
   const isAdmin = user?.publicMetadata?.role === "admin";
   console.log(isAdmin);
+  const {
+    isLoading,
+    data: jobs,
+    error,
+  } = useQuery({ queryKey: ["jobs"], queryFn: getJobs });
 
   return (
     <section className="py-8">
