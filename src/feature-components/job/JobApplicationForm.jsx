@@ -82,16 +82,6 @@ function JobApplicationForm() {
     navigate("/");
   }
 
-  function onClear() {
-    form.reset({
-      fullName: "",
-      answer1: "",
-      answer2: "",
-      answer3: "",
-      resume: null,
-    });
-  }
-
   if (isLoading || !isLoaded) return <Spinner />;
 
   if (!isSignedIn) {
@@ -231,7 +221,14 @@ function JobApplicationForm() {
             >
               Submit
             </Button>
-            <Button className="mt-8 w-fit" variant="outline" onClick={onClear}>
+
+            <Button
+              className="mt-8 w-fit"
+              variant="outline"
+              onClick={() => {
+                form.reset();
+              }}
+            >
               Cancel
             </Button>
           </div>

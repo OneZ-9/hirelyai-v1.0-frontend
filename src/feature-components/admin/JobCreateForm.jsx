@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { createJob } from "@/lib/services/api/jobs";
+import { createJob as createJobApi } from "@/lib/services/api/jobs";
 import { formatDate } from "date-fns";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +27,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
+import SpinnerMini from "@/components/shared/SpinnerMini";
 
 const jobFormSchema = z.object({
   title: z.string().min(1, "Job title is required"),
@@ -53,8 +56,20 @@ function JobCreateForm() {
     },
   });
 
-  async function onSubmit(data) {
-    await createJob({
+  const queryClient = useQueryClient();
+  const { isLoading: isCreatingJob, mutate: createJob } = useMutation({
+    mutationFn: createJobApi,
+    onSuccess: () => {
+      toast.success("Job created successfully");
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      form.reset();
+      navigate("/admin/jobs");
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  function onSubmit(data) {
+    createJob({
       title: data.title,
       company: data.company,
       type: data.type,
@@ -63,8 +78,6 @@ function JobCreateForm() {
       questions: [data.question1, data.question2, data.question3],
       posted: formatDate(new Date(), "dd/MM/yyyy"),
     });
-    // setFormData(initialState);
-    navigate("/admin/jobs");
   }
 
   return (
@@ -237,9 +250,31 @@ function JobCreateForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-8 bg-card text-card-foreground">
-          Submit
-        </Button>
+
+        <div className="flex items-center gap-x-4">
+          <Button
+            type="submit"
+            className="mt-8 bg-card text-card-foreground"
+            disabled={isCreatingJob}
+          >
+            {isCreatingJob && (
+              <span>
+                <SpinnerMini />
+              </span>
+            )}
+            Submit
+          </Button>
+
+          <Button
+            className="mt-8 w-fit"
+            variant="outline"
+            onClick={() => {
+              form.reset();
+            }}
+          >
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
