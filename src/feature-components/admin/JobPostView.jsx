@@ -1,17 +1,45 @@
-import useFetchJobById from "../../hooks/useFetchJobById";
-import useFetchJobApplicationsByJobId from "../../hooks/useFetchJobApplicationsByJobId";
+// import useFetchJobById from "../../hooks/useFetchJobById";
+// import useFetchJobApplicationsByJobId from "../../hooks/useFetchJobApplicationsByJobId";import { useQuery } from "@tanstack/react-query";
+import { getJobById } from "@/lib/services/api/jobs";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 import Spinner from "@/components/shared/Spinner";
 import { Separator } from "@/components/ui/separator";
 import { Briefcase, MapPin } from "lucide-react";
 import JobApplicationCard from "@/feature-components/admin/JobApplicationCard";
+import { getJobApplicationsForJob } from "@/lib/services/api/jobApplications";
+import ErrorComponent from "@/components/shared/ErrorComponent";
 
 function JobPostView() {
-  const { job, isLoading } = useFetchJobById();
-  const { jobApplications, isLoadingJobApplications } =
-    useFetchJobApplicationsByJobId();
+  // const { job, isLoading } = useFetchJobById();
+  // const { jobApplications, isLoadingJobApplications } =
+  //   useFetchJobApplicationsByJobId();
+  const { jobId } = useParams();
 
-  if (isLoading || isLoadingJobApplications) return <Spinner />;
+  const {
+    isLoading: isLoadingJob,
+    data: job,
+    error: jobError,
+  } = useQuery({
+    queryKey: ["job", jobId],
+    queryFn: () => getJobById(jobId),
+    enabled: !!jobId, // Only run the query if jobId is truthy
+  });
+
+  const {
+    isLoading: isLoadingJobApplications,
+    data: jobApplications,
+    error: jobApplicationsError,
+  } = useQuery({
+    queryKey: ["jobApplications", jobId],
+    queryFn: () => getJobApplicationsForJob(jobId),
+    enabled: !!jobId, // Only run the query if jobId is truthy
+  });
+
+  if (jobError || jobApplicationsError) return <ErrorComponent />;
+
+  if (isLoadingJob || isLoadingJobApplications) return <Spinner />;
 
   return (
     <div>
@@ -28,11 +56,6 @@ function JobPostView() {
             <span>{job?.location}</span>
           </div>
         </div>
-        {/* <div className="gap-x-4 flex items-center mt-4">
-    <Badge>NodeJS</Badge>
-    <Badge>ReactJS</Badge>
-    <Badge>AWS</Badge>
-  </div> */}
       </div>
 
       <div className="mt-4 py-4">
@@ -43,7 +66,7 @@ function JobPostView() {
       <div className="py-8">
         <h2>Job Applications</h2>
         <div className="mt-4 flex flex-col gap-y-4">
-          {jobApplications.map((application) => (
+          {jobApplications?.map((application) => (
             <JobApplicationCard
               key={application._id}
               fullName={application.fullName}

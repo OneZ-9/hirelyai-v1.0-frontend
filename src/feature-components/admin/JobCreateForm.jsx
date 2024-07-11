@@ -63,7 +63,7 @@ function JobCreateForm() {
       toast.success("Job created successfully");
       queryClient.invalidateQueries({ queryKey: ["jobs"] });
       form.reset();
-      navigate("/admin/jobs");
+      navigate("/admin/jobs", { replace: true });
     },
     onError: (err) => toast.error(err.message),
   });

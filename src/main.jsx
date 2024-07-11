@@ -63,11 +63,11 @@ const router = createBrowserRouter([
             element: <AdminJobCreatePage />,
           },
           {
-            path: "job/update/:id",
+            path: "job/update/:jobId",
             element: <AdminJobUpdatePage />,
           },
           {
-            path: "job/:id",
+            path: "job/:jobId",
             element: <AdminJobPage />,
           },
           {
