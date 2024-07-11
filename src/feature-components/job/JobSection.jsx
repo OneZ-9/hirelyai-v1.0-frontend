@@ -8,7 +8,7 @@ import Spinner from "@/components/shared/Spinner";
 function JobSection() {
   const { user } = useUser();
   const isAdmin = user?.publicMetadata?.role === "admin";
-  console.log(isAdmin);
+
   const {
     isLoading,
     data: jobs,

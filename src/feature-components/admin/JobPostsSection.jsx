@@ -1,13 +1,20 @@
-import useFetchJobs from "../../hooks/useFetchJobs";
+// import useFetchJobs from "../../hooks/useFetchJobs";
+import { useQuery } from "@tanstack/react-query";
+import { getJobs } from "@/lib/services/api/jobs";
 
 import Spinner from "@/components/shared/Spinner";
 import JobCard from "../job/JobCard";
 
 function JobPostsSection() {
-  const { jobs, isLoading } = useFetchJobs();
+  // const { jobs, isLoading } = useFetchJobs();
+  const {
+    isLoading,
+    data: jobs,
+    error,
+  } = useQuery({ queryKey: ["jobs"], queryFn: getJobs });
   // console.log(jobs);
 
-  // if (isLoading) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
   return (
     <section className="py-8">

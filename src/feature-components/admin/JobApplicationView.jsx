@@ -1,15 +1,24 @@
-import { Link } from "react-router-dom";
-import useFetchJobApplicationById from "../../hooks/useFetchJobApplicationById";
+import { Link, useParams } from "react-router-dom";
+// import useFetchJobApplicationById from "../../hooks/useFetchJobApplicationById";
 
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Spinner from "@/components/shared/Spinner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { getJobApplicationById } from "@/lib/services/api/jobApplications";
 
 function JobApplicationView() {
-  const { jobApplication, isLoadingJobApplication } =
-    useFetchJobApplicationById();
+  // const { jobApplication, isLoadingJobApplication } =
+  //   useFetchJobApplicationById();
+  const { applicationId } = useParams();
+  const { isLoading: isLoadingJobApplication, data: jobApplication } = useQuery(
+    {
+      queryKey: ["jobApplication", applicationId],
+      queryFn: () => getJobApplicationById(applicationId),
+    }
+  );
 
   const handleDownload = () => {
     const link = document.createElement("a");
