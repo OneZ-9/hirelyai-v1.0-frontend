@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { ThemeProvider } from "./components/theme/ThemeProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import "./index.css";
 import HomePage from "./pages/home/home.page.jsx";
@@ -16,13 +19,18 @@ import AdminJobPostsPage from "./pages/admin/admin-job-posts.page";
 import AdminJobPage from "./pages/admin/admin-job.page";
 import AdminJobApplicationPage from "./pages/admin/admin-job-application.page";
 import AdminJobUpdatePage from "./pages/admin/admin-job-update.page";
-import { ThemeProvider } from "./components/theme/ThemeProvider";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
 }
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { staleTime: 60 * 1000 },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -89,7 +97,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       disableTransitionOnChange
     >
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </ClerkProvider>
     </ThemeProvider>
   </React.StrictMode>

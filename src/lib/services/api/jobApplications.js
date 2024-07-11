@@ -1,19 +1,4 @@
-// const URL = import.meta.env.BASE_URL;
 const baseUrl = import.meta.env.VITE_BASE_URL;
-
-export async function createJobApplication(formData) {
-  const token = await window.Clerk.session?.getToken();
-
-  await fetch(`${baseUrl}/jobApplications`, {
-    method: "POST",
-    headers: {
-      // "Content-Type": "application/json",
-      // "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`,
-    },
-    body: formData,
-  });
-}
 
 // export const createJobApplication = async ({
 //   userId,
@@ -50,3 +35,68 @@ export async function createJobApplication(formData) {
 //   const data = await res.json();
 //   return data;
 // };
+
+export const createJobApplication = async (formData) => {
+  const token = await window.Clerk.session?.getToken();
+
+  try {
+    const res = await fetch(`${baseUrl}/jobApplications`, {
+      method: "POST",
+      headers: {
+        // "Content-Type": "application/json",
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+  } catch (error) {
+    console.error("Failed to submit the jobApplication:", error);
+    throw error;
+  }
+};
+
+export const getJobApplicationsForJob = async (jobId) => {
+  const token = await window.Clerk.session?.getToken();
+
+  try {
+    const res = await fetch(`${baseUrl}/jobApplications?jobId=${jobId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch jobApplications:", error);
+    throw error;
+  }
+};
+
+export const getJobApplicationById = async (applicationId) => {
+  const token = await window.Clerk.session?.getToken();
+
+  try {
+    const res = await fetch(`${baseUrl}/jobApplications/${applicationId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch jobApplications:", error);
+    throw error;
+  }
+};
