@@ -1,5 +1,5 @@
 // import useFetchJobById from "../../hooks/useFetchJobById";
-// import useFetchJobApplicationsByJobId from "../../hooks/useFetchJobApplicationsByJobId";import { useQuery } from "@tanstack/react-query";
+// import useFetchJobApplicationsByJobId from "../../hooks/useFetchJobApplicationsByJobId";
 import { getJobById } from "@/lib/services/api/jobs";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";

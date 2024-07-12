@@ -4,6 +4,7 @@ import { getJobs } from "@/lib/services/api/jobs";
 
 import JobCard from "../job/JobCard";
 import Spinner from "@/components/shared/Spinner";
+import ErrorComponent from "@/components/shared/ErrorComponent";
 
 function JobSection() {
   const { user } = useUser();
@@ -14,6 +15,8 @@ function JobSection() {
     data: jobs,
     error,
   } = useQuery({ queryKey: ["jobs"], queryFn: getJobs });
+
+  if (error) return <ErrorComponent />;
 
   return (
     <section className="py-8">
