@@ -4,9 +4,9 @@ import { formatDate } from "date-fns";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import useFetchJobById from "../../hooks/useFetchJobById";
+import { createJobApplication as createJobApplicationApi } from "@/lib/services/api/jobApplications";
+// import useFetchJobById from "../../hooks/useFetchJobById";
 
-import { createJobApplication } from "@/lib/services/api/jobApplications";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -23,7 +23,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getJobById } from "@/lib/services/api/jobs";
+import toast from "react-hot-toast";
+import SpinnerMini from "@/components/shared/SpinnerMini";
 
 const jobApplycationFormSchema = z.object({
   fullName: z.string().min(1, "Name is required"),
@@ -36,10 +39,34 @@ const jobApplycationFormSchema = z.object({
 });
 
 function JobApplicationForm() {
-  const params = useParams();
-  const { job, isLoading } = useFetchJobById();
+  // const { job, isLoading } = useFetchJobById();
   const { user, isSignedIn, isLoaded } = useUser();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { jobId } = useParams();
+  const {
+    isLoading: isLoadingJob,
+    data: job,
+    error: errorJob,
+  } = useQuery({
+    queryKey: ["job", jobId],
+    queryFn: () => getJobById(jobId),
+    enabled: !!jobId, // Only run the query if jobId is truthy
+  });
+
+  const {
+    isLoading: isSubmittingJobApplication,
+    mutate: createJobApplication,
+  } = useMutation({
+    mutationFn: createJobApplicationApi,
+    onSuccess: () => {
+      toast.success("Your job application submitted successfully");
+      queryClient.invalidateQueries({ queryKey: ["jobApplications"] });
+      navigate("/", { replace: true });
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
   const form = useForm({
     resolver: zodResolver(jobApplycationFormSchema),
     defaultValues: {
@@ -68,7 +95,7 @@ function JobApplicationForm() {
       JSON.stringify([data.answer1, data.answer2, data.answer3])
     );
     formData.append("resume", data.resume[0]); // Add the resume file
-    formData.append("job", params.id);
+    formData.append("job", jobId);
     formData.append("submitted", formatDate(new Date(), "dd/MM/yyyy"));
 
     // Log FormData contents for debugging
@@ -77,12 +104,9 @@ function JobApplicationForm() {
     // }
 
     createJobApplication(formData);
-
-    // setFormData(initialState);
-    navigate("/");
   }
 
-  if (isLoading || !isLoaded) return <Spinner />;
+  if (isLoadingJob || !isLoaded) return <Spinner />;
 
   if (!isSignedIn) {
     return <Navigate to="/sign-in" />;
@@ -219,7 +243,14 @@ function JobApplicationForm() {
               // className="mt-8 bg-card text-card-foreground w-fit"
               className="mt-8 w-fit"
             >
-              Submit
+              {isSubmittingJobApplication ? (
+                <span className="flex items-center gap-2">
+                  <SpinnerMini />
+                  Submitting
+                </span>
+              ) : (
+                "Submit"
+              )}
             </Button>
 
             <Button

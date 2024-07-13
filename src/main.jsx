@@ -45,7 +45,7 @@ const router = createBrowserRouter([
             element: <HomePage />,
           },
           {
-            path: "/job/:id",
+            path: "/job/:jobId",
             element: <JobPage />,
           },
         ],
@@ -100,8 +100,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
           <RouterProvider router={router} />
+
           <Toaster
-          // toastOptions={{ style: { backgroundColor: "var(--card)" } }}
+            // toastOptions={{ style: { backgroundColor: "var(--card)" } }}
+            toastOptions={{ className: "toastStyles" }}
           />
         </QueryClientProvider>
       </ClerkProvider>
