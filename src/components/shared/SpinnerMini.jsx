@@ -1,18 +1,22 @@
 import { ColorRing } from "react-loader-spinner";
 
-function SpinnerMini() {
+function SpinnerMini({ variant }) {
+  // const variants = variant{
+
+  // }
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <span>
       <ColorRing
         visible={true}
-        height="14"
-        width="14"
+        height="16"
+        width="16"
         ariaLabel="color-ring-loading"
         wrapperStyle={{}}
         wrapperClass="color-ring-wrapper"
-        colors={["#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00"]}
+        // colors={["#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00"]}
+        colors={["#232320", "#232320", "#232320", "#232320", "#232320"]}
       />
-    </div>
+    </span>
   );
 }
 

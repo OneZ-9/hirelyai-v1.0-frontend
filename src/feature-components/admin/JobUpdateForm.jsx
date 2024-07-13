@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { updateJob } from "@/lib/services/api/jobs";
-import useFetchJobById from "@/hooks/useFetchJobById";
+import { getJobById, updateJob as updateJobApi } from "@/lib/services/api/jobs";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import useFetchJobById from "@/hooks/useFetchJobById";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,9 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import Spinner from "@/components/shared/Spinner";
+import ErrorComponent from "@/components/shared/ErrorComponent";
+import toast from "react-hot-toast";
+import SpinnerMini from "@/components/shared/SpinnerMini";
 
 const jobFormSchema = z.object({
   company: z.string().min(1, "Company name is required"),
@@ -40,9 +44,9 @@ const jobFormSchema = z.object({
 });
 
 function JobUpdateForm() {
-  const { job, isLoading } = useFetchJobById();
-
+  // const { job, isLoading } = useFetchJobById();
   const navigate = useNavigate();
+  const { jobId } = useParams();
   const form = useForm({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
@@ -55,6 +59,27 @@ function JobUpdateForm() {
       question2: "",
       question3: "",
     },
+  });
+
+  const {
+    isLoading: isLoadingJob,
+    data: job,
+    error: jobError,
+  } = useQuery({
+    queryKey: ["job", jobId],
+    queryFn: () => getJobById(jobId),
+    enabled: !!jobId, // Only run the query if jobId is truthy
+  });
+
+  const queryClient = useQueryClient();
+  const { isLoading: isUpdatingJob, mutate: updateJob } = useMutation({
+    mutationFn: updateJobApi,
+    onSuccess: () => {
+      toast.success("Job updated successfully");
+      queryClient.invalidateQueries({ queryKey: ["jobs"] });
+      navigate("/admin/jobs", { replace: true });
+    },
+    onError: (err) => toast.error(err.message),
   });
 
   useEffect(() => {
@@ -72,8 +97,8 @@ function JobUpdateForm() {
     }
   }, [job, form]);
 
-  async function onSubmit(data) {
-    await updateJob({
+  function onSubmit(data) {
+    updateJob({
       _id: job._id,
       title: data.title,
       company: data.company,
@@ -83,11 +108,10 @@ function JobUpdateForm() {
       questions: [data.question1, data.question2, data.question3],
       posted: job.posted,
     });
-    // setFormData(initialState);
-    navigate("/admin/jobs", { replace: true });
   }
 
-  if (isLoading) return <Spinner />;
+  if (jobError) return <ErrorComponent />;
+  if (isLoadingJob) return <Spinner />;
 
   return (
     <Form {...form}>
@@ -104,6 +128,7 @@ function JobUpdateForm() {
                 <Input
                   className="mt-2 h-10"
                   placeholder="Software Engineer"
+                  disabled={isLoadingJob || isUpdatingJob}
                   {...field}
                 />
               </FormControl>
@@ -125,6 +150,7 @@ function JobUpdateForm() {
                 <Input
                   className="mt-2 h-10"
                   placeholder="ABC Company pvt Ltd"
+                  disabled={isLoadingJob || isUpdatingJob}
                   {...field}
                 />
               </FormControl>
@@ -146,6 +172,7 @@ function JobUpdateForm() {
                 <Textarea
                   className="mt-2 h-10"
                   placeholder="We are looking for a highly skilled and experienced Software Engineer to join our dynamic team..."
+                  disabled={isLoadingJob || isUpdatingJob}
                   {...field}
                 />
               </FormControl>
@@ -169,6 +196,7 @@ function JobUpdateForm() {
                     className="mt-2 h-10"
                     {...field}
                     placeholder="Colombo, Sri Lanka"
+                    disabled={isLoadingJob || isUpdatingJob}
                   />
                 </FormControl>
                 <FormDescription />
@@ -188,6 +216,7 @@ function JobUpdateForm() {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={job?.type || field.value}
+                  disabled={isLoadingJob || isUpdatingJob}
                 >
                   <FormControl>
                     <SelectTrigger className="mt-2 h-10" id="type">
@@ -222,7 +251,11 @@ function JobUpdateForm() {
                 <h3>Question 1</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isLoadingJob || isUpdatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -239,7 +272,11 @@ function JobUpdateForm() {
                 <h3>Question 2</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isLoadingJob || isUpdatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -256,7 +293,11 @@ function JobUpdateForm() {
                 <h3>Question 3</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isLoadingJob || isUpdatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -268,12 +309,21 @@ function JobUpdateForm() {
           <Button
             type="submit"
             className="mt-8 bg-card text-card-foreground w-fit"
+            disabled={isLoadingJob || isUpdatingJob}
           >
-            Save and Update Job
+            {isUpdatingJob ? (
+              <span className="flex items-center gap-2">
+                <SpinnerMini />
+                Updating Job
+              </span>
+            ) : (
+              "Save and Update Job"
+            )}
           </Button>
           <Button
             className="mt-8 w-fit"
             variant="outline"
+            disabled={isLoadingJob || isUpdatingJob}
             onClick={() => {
               navigate("/admin/jobs");
             }}

@@ -95,6 +95,7 @@ function JobCreateForm() {
                 <Input
                   className="mt-2 h-10"
                   placeholder="Software Engineer"
+                  disabled={isCreatingJob}
                   {...field}
                 />
               </FormControl>
@@ -116,6 +117,7 @@ function JobCreateForm() {
                 <Input
                   className="mt-2 h-10"
                   placeholder="ABC Company pvt Ltd"
+                  disabled={isCreatingJob}
                   {...field}
                 />
               </FormControl>
@@ -137,6 +139,7 @@ function JobCreateForm() {
                 <Textarea
                   className="mt-2 h-10"
                   placeholder="We are looking for a highly skilled and experienced Software Engineer to join our dynamic team..."
+                  disabled={isCreatingJob}
                   {...field}
                 />
               </FormControl>
@@ -158,6 +161,7 @@ function JobCreateForm() {
                 <FormControl>
                   <Input
                     className="mt-2 h-10"
+                    disabled={isCreatingJob}
                     {...field}
                     placeholder="Colombo, Sri Lanka"
                   />
@@ -179,6 +183,7 @@ function JobCreateForm() {
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isCreatingJob}
                 >
                   <FormControl>
                     <SelectTrigger className="mt-2 h-10" id="type">
@@ -201,7 +206,9 @@ function JobCreateForm() {
             )}
           />
         </div>
+
         <Separator className="mt-14 mb-20" />
+
         <FormField
           control={form.control}
           name="question1"
@@ -211,13 +218,18 @@ function JobCreateForm() {
                 <h3>Question 1</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isCreatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="question2"
@@ -227,13 +239,18 @@ function JobCreateForm() {
                 <h3>Question 2</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isCreatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="question3"
@@ -243,7 +260,11 @@ function JobCreateForm() {
                 <h3>Question 3</h3>
               </FormLabel>
               <FormControl>
-                <Textarea className="mt-2 h-10" {...field} />
+                <Textarea
+                  className="mt-2 h-10"
+                  disabled={isCreatingJob}
+                  {...field}
+                />
               </FormControl>
               <FormDescription />
               <FormMessage />
@@ -268,6 +289,7 @@ function JobCreateForm() {
           <Button
             className="mt-8 w-fit"
             variant="outline"
+            disabled={isCreatingJob}
             onClick={() => {
               form.reset();
             }}
