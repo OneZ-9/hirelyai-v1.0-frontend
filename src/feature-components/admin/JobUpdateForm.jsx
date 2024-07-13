@@ -305,7 +305,7 @@ function JobUpdateForm() {
           )}
         />
 
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-4 mb-12 justify-end">
           <Button
             type="submit"
             className="mt-8 bg-card text-card-foreground w-fit"

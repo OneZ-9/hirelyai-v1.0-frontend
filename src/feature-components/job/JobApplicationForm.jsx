@@ -27,6 +27,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getJobById } from "@/lib/services/api/jobs";
 import toast from "react-hot-toast";
 import SpinnerMini from "@/components/shared/SpinnerMini";
+import ErrorComponent from "@/components/shared/ErrorComponent";
 
 const jobApplycationFormSchema = z.object({
   fullName: z.string().min(1, "Name is required"),
@@ -106,6 +107,7 @@ function JobApplicationForm() {
     createJobApplication(formData);
   }
 
+  if (errorJob) return <ErrorComponent />;
   if (isLoadingJob || !isLoaded) return <Spinner />;
 
   if (!isSignedIn) {
@@ -236,7 +238,7 @@ function JobApplicationForm() {
             )}
           />
 
-          <div className="flex items-center gap-x-4">
+          <div className="flex items-center gap-x-4 mb-12 justify-end">
             <Button
               type="submit"
               variant="default"
@@ -249,7 +251,7 @@ function JobApplicationForm() {
                   Submitting
                 </span>
               ) : (
-                "Submit"
+                "Submit Application"
               )}
             </Button>
 

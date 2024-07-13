@@ -58,11 +58,11 @@ function JobApplicationView() {
           return <p key={i}>{answer}</p>;
         })}
       </Card>
-      <div className="flex items-center gap-2">
-        <Button onClick={handleDownload}>Download Resume</Button>
+      <div className="flex items-center gap-6 mb-12 justify-end">
         <Button variant="link" asChild>
           <Link to={"/admin/jobs"}>Back</Link>
         </Button>
+        <Button onClick={handleDownload}>Download Resume</Button>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ function Navigation() {
     <nav className="flex py-12 justify-between items-center">
       <div>
         <Link to={"/"} className="text-4xl font-medium text-underlay-1">
-          HirelyAI v1.0
+          HirelyAi v1.0
         </Link>
       </div>
 

@@ -100,29 +100,27 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
   .hero {
     background: url("/assets/home/hero-3.png");
     background-position: center;
     background-size: cover;
   }
-}
 
-.cl-internal-1eekank {
-  color: var(--primary-foreground);
-  font-size: 1rem;
-  font-weight: 400;
-}
+  .cl-internal-1eekank {
+    color: var(--primary-foreground);
+    font-size: 1rem;
+    font-weight: 400;
+  }
 
-.dark .cl-internal-1eekank {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
-}
+  .dark .cl-internal-1eekank {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+  }
 
-.toastStyles {
-  background-color: var(--card);
-}
-
-.dark .toastStyles {
-  background-color: #fff;
+  .dark .toastStyles {
+    color: #fff;
+    background: hsl(222.2, 84%, 4.9%);
+  }
 }
