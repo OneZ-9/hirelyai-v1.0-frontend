@@ -1,7 +1,8 @@
-import Spinner from "@/components/shared/Spinner";
-import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
-import { Link, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+
+import AdminNav from "@/components/shared/AdminNav";
+import Spinner from "@/components/shared/Spinner";
 
 function AdminLayout() {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -13,12 +14,7 @@ function AdminLayout() {
 
   return (
     <div>
-      <div className="flex justify-end items-center gap-x-4 py-4">
-        <Link to="/admin/jobs">Job Posts</Link>
-        <Button asChild>
-          <Link to="/admin/job/create">Post A Job</Link>
-        </Button>
-      </div>
+      <AdminNav />
       <Outlet />
     </div>
   );
