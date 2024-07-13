@@ -10,7 +10,7 @@ function Spinner() {
         ariaLabel="color-ring-loading"
         wrapperStyle={{}}
         wrapperClass="color-ring-wrapper"
-        colors={["#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00", "#d9ff00"]}
+        colors={["#219ebc", "#219ebc", "#219ebc", "#219ebc", "#219ebc"]}
       />
     </div>
   );

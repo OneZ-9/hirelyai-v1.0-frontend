@@ -109,7 +109,7 @@ function JobCreateForm() {
           control={form.control}
           name="company"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-6">
               <FormLabel>
                 <h3>Company</h3>
               </FormLabel>
@@ -272,12 +272,8 @@ function JobCreateForm() {
           )}
         />
 
-        <div className="flex items-center gap-x-4 mb-12 justify-end">
-          <Button
-            type="submit"
-            className="mt-8 bg-card text-card-foreground"
-            disabled={isCreatingJob}
-          >
+        <div className="flex items-center gap-x-4 mt-8 mb-12 justify-end">
+          <Button type="submit" variant="default" disabled={isCreatingJob}>
             {isCreatingJob && (
               <span>
                 <SpinnerMini />
@@ -287,7 +283,7 @@ function JobCreateForm() {
           </Button>
 
           <Button
-            className="mt-8 w-fit"
+            className="w-fit"
             variant="outline"
             disabled={isCreatingJob}
             onClick={() => {

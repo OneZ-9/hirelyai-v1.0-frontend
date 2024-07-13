@@ -19,7 +19,7 @@ function JobSection() {
   if (error) return <ErrorComponent />;
 
   return (
-    <section className="py-8">
+    <section className="py-8 container">
       <h2>Available Jobs</h2>
 
       {isLoading ? (

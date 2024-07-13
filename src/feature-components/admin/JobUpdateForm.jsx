@@ -121,7 +121,7 @@ function JobUpdateForm() {
           name="title"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-base">
                 <h3>Title</h3>
               </FormLabel>
               <FormControl>
@@ -142,8 +142,8 @@ function JobUpdateForm() {
           control={form.control}
           name="company"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>
+            <FormItem className="mt-6">
+              <FormLabel className="text-base">
                 <h3>Company</h3>
               </FormLabel>
               <FormControl>
@@ -165,7 +165,7 @@ function JobUpdateForm() {
           name="description"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-base">
                 <h3>Description</h3>
               </FormLabel>
               <FormControl>
@@ -188,7 +188,7 @@ function JobUpdateForm() {
             name="location"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel>
+                <FormLabel className="text-base">
                   <h3>Location</h3>
                 </FormLabel>
                 <FormControl>
@@ -210,7 +210,7 @@ function JobUpdateForm() {
             name="type"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel>
+                <FormLabel className="text-base">
                   <h3>Type</h3>
                 </FormLabel>
                 <Select
@@ -247,7 +247,7 @@ function JobUpdateForm() {
           name="question1"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-base">
                 <h3>Question 1</h3>
               </FormLabel>
               <FormControl>
@@ -268,7 +268,7 @@ function JobUpdateForm() {
           name="question2"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-base">
                 <h3>Question 2</h3>
               </FormLabel>
               <FormControl>
@@ -289,7 +289,7 @@ function JobUpdateForm() {
           name="question3"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-base">
                 <h3>Question 3</h3>
               </FormLabel>
               <FormControl>
@@ -305,10 +305,10 @@ function JobUpdateForm() {
           )}
         />
 
-        <div className="flex items-center gap-x-4 mb-12 justify-end">
+        <div className="flex items-center gap-x-4 mt-8 mb-12 justify-end">
           <Button
             type="submit"
-            className="mt-8 bg-card text-card-foreground w-fit"
+            variant="default"
             disabled={isLoadingJob || isUpdatingJob}
           >
             {isUpdatingJob ? (
@@ -321,7 +321,7 @@ function JobUpdateForm() {
             )}
           </Button>
           <Button
-            className="mt-8 w-fit"
+            className="w-fit"
             variant="outline"
             disabled={isLoadingJob || isUpdatingJob}
             onClick={() => {

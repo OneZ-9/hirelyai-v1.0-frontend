@@ -32,9 +32,11 @@ function JobApplicationView() {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <Card className="bg-foreground">
+      <Card className="bg-primary">
         <CardHeader className="flex-row items-center gap-x-4">
-          <CardTitle>{jobApplication?.fullName}</CardTitle>
+          <CardTitle className="text-primary-foreground">
+            {jobApplication?.fullName}
+          </CardTitle>
           <Badge
             className={cn({
               "bg-red-500":
@@ -47,7 +49,7 @@ function JobApplicationView() {
           >
             {jobApplication?.rating}
           </Badge>
-          <span className="px-4 ml-auto">
+          <span className="px-4 ml-auto text-primary-foreground">
             Sumbitted on: {jobApplication?.submitted}
           </span>
         </CardHeader>

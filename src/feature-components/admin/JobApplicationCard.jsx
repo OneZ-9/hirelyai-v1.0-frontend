@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function JobApplicationCard({ id, jobId, fullName }) {
   return (
     <Link to={`/admin/job/${jobId}/application/${id}`}>
-      <Card>
+      <Card className="bg-primary text-primary-foreground">
         <CardHeader className="flex-row justify-between items-center">
           <CardTitle>{fullName}</CardTitle>
           <Button>View</Button>

@@ -115,11 +115,11 @@ function JobApplicationForm() {
   }
 
   return (
-    <div>
+    <div className="mt-10 container">
       <div>
         <h2>{job?.title}</h2>
-        <span className="mx-2 text-sm">{job?.company}</span>
-        <div className="flex items-center gap-x-4 mt-4">
+        <span className="mx-2 text-sm text-slate-400">{job?.company}</span>
+        <div className="flex items-center gap-x-4 mt-4 text-slate-400">
           <SubInfoTag icon={<Briefcase />} label={job?.type} />
           <SubInfoTag icon={<MapPin />} label={job?.location} />
 
@@ -130,7 +130,7 @@ function JobApplicationForm() {
         </div>
       </div>
 
-      <div className="mt-8 py-4">
+      <div className="mt-8 py-4 text-slate-400">
         <p>{job?.description}</p>
       </div>
       <Separator />
@@ -145,7 +145,7 @@ function JobApplicationForm() {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-base">Full Name</FormLabel>
                 <FormControl>
                   <Input
                     className="mt-2 h-10"
@@ -164,7 +164,9 @@ function JobApplicationForm() {
             name="answer1"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel>{job?.questions?.at(0)}</FormLabel>
+                <FormLabel className="text-base">
+                  {job?.questions?.at(0)}
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     className="mt-2 h-10"
@@ -183,7 +185,9 @@ function JobApplicationForm() {
             name="answer2"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel>{job?.questions?.at(1)}</FormLabel>
+                <FormLabel className="text-base">
+                  {job?.questions?.at(1)}
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     className="mt-2 h-10"
@@ -202,7 +206,9 @@ function JobApplicationForm() {
             name="answer3"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel>{job?.questions?.at(2)}</FormLabel>
+                <FormLabel className="text-base">
+                  {job?.questions?.at(2)}
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     className="mt-2 h-10"
@@ -221,7 +227,7 @@ function JobApplicationForm() {
             name="resume"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Upload resume</FormLabel>
+                <FormLabel className="text-base">Upload resume</FormLabel>
                 <FormControl>
                   <Input
                     type="file"

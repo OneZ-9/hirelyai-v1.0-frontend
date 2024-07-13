@@ -3,10 +3,10 @@ import { Button } from "../ui/button";
 
 function AdminNav() {
   return (
-    <nav className="flex py-12 justify-between items-center">
+    <nav className="flex py-10 justify-between items-center">
       <div>
-        <Link to={"/"} className="text-4xl font-medium text-underlay-1">
-          HirelyAI v1.0
+        <Link to={"/"} className="text-5xl font-bold text-underlay-1">
+          HirelyAi
         </Link>
       </div>
 
