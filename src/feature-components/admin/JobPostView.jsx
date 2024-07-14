@@ -45,7 +45,7 @@ function JobPostView() {
     <div>
       <div>
         <h2>{job?.title}</h2>
-        <div className="flex items-center gap-x-4 mt-4">
+        <div className="flex items-center gap-x-4 mt-4 text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-x-2">
             <Briefcase />
             <span>{job?.type}</span>
@@ -58,7 +58,7 @@ function JobPostView() {
         </div>
       </div>
 
-      <div className="mt-4 py-4">
+      <div className="mt-4 py-4 text-slate-500 dark:text-slate-400">
         <p>{job?.description}</p>
       </div>
       <Separator />
