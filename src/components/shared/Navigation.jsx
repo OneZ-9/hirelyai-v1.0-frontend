@@ -5,7 +5,7 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 function Navigation() {
   return (
-    <nav className="flex justify-between items-center py-8 px-16 shadow-sm">
+    <nav className="sticky top-0 bg-background z-50 flex justify-between items-center py-10 px-16 shadow-sm">
       <div>
         <Link to={"/"} className="text-5xl font-bold text-underlay-1">
           HirelyAi

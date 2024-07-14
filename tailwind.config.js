@@ -86,4 +86,8 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  corePlugins: {
+    // Enable the smooth scroll plugin
+    scrollBehavior: true,
+  },
 };

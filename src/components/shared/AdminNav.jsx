@@ -4,7 +4,7 @@ import { ModeToggle } from "../theme/ModeToggle";
 
 function AdminNav() {
   return (
-    <nav className="flex py-10 justify-between items-center">
+    <nav className="sticky top-0 bg-background z-50 flex py-10 justify-between items-center">
       <div>
         <Link to={"/"} className="text-5xl font-bold text-underlay-1">
           HirelyAi
