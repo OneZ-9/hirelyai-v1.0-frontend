@@ -19,8 +19,8 @@ function JobSection() {
   if (error) return <ErrorComponent />;
 
   return (
-    <section className="py-8 container">
-      <h2 className="py-6 ">Available Jobs</h2>
+    <section id="jobs" className="py-8 container">
+      <h2 className="py-6">Available Jobs</h2>
 
       {isLoading ? (
         <Spinner />
