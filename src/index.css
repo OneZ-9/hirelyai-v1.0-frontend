@@ -101,9 +101,17 @@
     @apply leading-7 [&:not(:first-child)]:mt-6;
   }
 
-  .text-underlay-1 {
+  .light .text-underlay-1 {
     /* background: linear-gradient(98deg, #d9ff00 -9.47%, #00a49d 65.47%); */
     background: linear-gradient(98deg, #219cba 30%, #003566 95.47%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .dark .text-underlay-1 {
+    /* background: linear-gradient(98deg, #219cba 65%, #003566 100%); */
+    background: linear-gradient(98deg, #219cba 30%, #0559a8 95.47%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -116,19 +124,19 @@
   } */
 
   .light .cl-internal-1eekank {
-    color: var(--primary-foreground);
+    color: #020817;
     font-size: 1rem;
     font-weight: 400;
   }
 
   .dark .cl-internal-1eekank {
-    color: #fff;
+    color: #f8fafc;
     font-size: 1rem;
     font-weight: 400;
   }
 
   .dark .toastStyles {
     color: var(--foreground);
-    background: var(--primary-light);
+    background: #003566;
   }
 }
