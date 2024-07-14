@@ -6,7 +6,7 @@ import Logo from "./Logo";
 
 function Navigation() {
   return (
-    <nav className="sticky top-0 bg-background z-50 h-[112px] flex justify-between items-center px-16 shadow-sm">
+    <nav className="sticky top-0 bg-background z-50 h-[125px] flex justify-between items-center py-10 px-16 shadow-sm">
       <Logo />
 
       <div className="flex justify-center gap-x-8 items-center">
