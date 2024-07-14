@@ -2,15 +2,12 @@ import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { ModeToggle } from "@/components/theme/ModeToggle";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import Logo from "./Logo";
 
 function Navigation() {
   return (
     <nav className="sticky top-0 bg-background z-50 h-[112px] flex justify-between items-center px-16 shadow-sm">
-      <div>
-        <Link to={"/"} className="text-5xl font-bold text-underlay-1">
-          HirelyAi
-        </Link>
-      </div>
+      <Logo />
 
       <div className="flex justify-center gap-x-8 items-center">
         <Link to={"/"}>Home</Link>
