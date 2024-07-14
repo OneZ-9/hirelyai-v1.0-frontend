@@ -39,7 +39,7 @@ function JobCard({ job, isAdmin }) {
       {isAdmin && (
         <>
           <IconButton
-            className="absolute text-destructive hover:text-destructive hover:bg-red-100 dark:hover:bg-red-300 top-5 right-4"
+            className="absolute text-destructive hover:text-destructive hover:bg-red-100 dark:hover:bg-red-200 top-5 right-4"
             // onClick={() => {
             // deleteJob(job._id);
             //   navigate(0);
@@ -51,7 +51,7 @@ function JobCard({ job, isAdmin }) {
           </IconButton>
 
           <Link to={`/admin/job/update/${job._id}`}>
-            <IconButton className="absolute text-foreground top-5 right-14">
+            <IconButton className="absolute text-foreground top-5 right-14 text-slate-500 dark:text-slate-400">
               <Pencil className="w-5 h-5" />
             </IconButton>
           </Link>
@@ -67,10 +67,13 @@ function JobCard({ job, isAdmin }) {
             <CardTitle>
               <span className="hover:underline">{job.title}</span>
             </CardTitle>
-            <span className="mx-2 text-sm text-slate-400">{job.company}</span>
+            {/* <span className="mx-2 text-base text-slate-600 dark:text-slate-400"> */}
+            <span className="mx-2 text-base text-themecolor-darkblue dark:text-themecolor-lightblue">
+              {job.company}
+            </span>
           </CardHeader>
           <CardContent></CardContent>
-          <CardFooter className="flex items-cente gap-x-4 text-slate-400">
+          <CardFooter className="flex items-cente gap-x-4 text-slate-500 dark:text-slate-400">
             <SubInfoTag icon={<Briefcase />} label={job.type} />
             <SubInfoTag icon={<MapPin />} label={job.location} />
 

@@ -20,7 +20,7 @@ function JobSection() {
 
   return (
     <section className="py-8 container">
-      <h2>Available Jobs</h2>
+      <h2 className="py-6 ">Available Jobs</h2>
 
       {isLoading ? (
         <Spinner />
