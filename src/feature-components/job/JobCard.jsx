@@ -33,7 +33,7 @@ function JobCard({ job, isAdmin }) {
       {!isAdmin && (
         <ShareButton
           value={`http://localhost:5173/job/${job._id}`}
-          className="absolute text-forground top-5 right-4"
+          className="absolute text-slate-500 dark:text-slate-400 top-5 right-4"
         />
       )}
       {isAdmin && (
