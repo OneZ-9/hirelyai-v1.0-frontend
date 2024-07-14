@@ -1,6 +1,8 @@
+import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 
 function Hero() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -11,8 +13,8 @@ function Hero() {
       <div>
         <h1 className="animate-slidein [--slidein-delay:400ms] opacity-0">
           Find your dream job with {""}
-          <span className="animate-slidein [--slidein-delay:500ms] opacity-0 text-underlay-1">
-            HirelyAi
+          <span className="animate-slidein [--slidein-delay:500ms] opacity-0">
+            <Logo />
           </span>
         </h1>
         <p className="animate-slidein [--slidein-delay:600ms] opacity-0 text-base text-slate-500 dark:text-slate-400">
@@ -23,7 +25,7 @@ function Hero() {
           Innovative AI platform that transforms the way you find and hire top
           talent.
         </p>
-        {!isSignedIn ? (
+        {!isSignedIn || !isLoaded ? (
           <div className="flex flex-col gap-y-4 items-center my-20">
             <Button
               asChild
@@ -47,7 +49,7 @@ function Hero() {
             <span className="text-2xl">
               Hello! {user.firstName}, {""}
             </span>
-            <Link
+            <ScrollLink
               to="jobs"
               smooth={true}
               duration={500}
@@ -55,7 +57,7 @@ function Hero() {
               className="text-3xl hover:underline text-themecolor-lightblue dark:text-themecolor-lightblue animate-slidein [--slidein-delay:900ms] opacity-0 text-slate-500 dark:text-slate-400 cursor-pointer"
             >
               Find out latest jobs <span className="ml-2 text-2xl">&darr;</span>
-            </Link>
+            </ScrollLink>
           </div>
         )}
       </div>
