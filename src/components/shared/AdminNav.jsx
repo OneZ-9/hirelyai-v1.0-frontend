@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
+import { ModeToggle } from "../theme/ModeToggle";
 
 function AdminNav() {
   return (
@@ -15,6 +16,8 @@ function AdminNav() {
         <Button asChild>
           <Link to="/admin/job/create">Post A Job</Link>
         </Button>
+
+        <ModeToggle />
       </div>
     </nav>
   );
