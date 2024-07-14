@@ -121,7 +121,7 @@ function JobUpdateForm() {
           name="title"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Title</h3>
               </FormLabel>
               <FormControl>
@@ -143,7 +143,7 @@ function JobUpdateForm() {
           name="company"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Company</h3>
               </FormLabel>
               <FormControl>
@@ -165,7 +165,7 @@ function JobUpdateForm() {
           name="description"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Description</h3>
               </FormLabel>
               <FormControl>
@@ -188,7 +188,7 @@ function JobUpdateForm() {
             name="location"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel className="text-base">
+                <FormLabel>
                   <h3>Location</h3>
                 </FormLabel>
                 <FormControl>
@@ -210,7 +210,7 @@ function JobUpdateForm() {
             name="type"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel className="text-base">
+                <FormLabel>
                   <h3>Type</h3>
                 </FormLabel>
                 <Select
@@ -247,7 +247,7 @@ function JobUpdateForm() {
           name="question1"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Question 1</h3>
               </FormLabel>
               <FormControl>
@@ -268,7 +268,7 @@ function JobUpdateForm() {
           name="question2"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Question 2</h3>
               </FormLabel>
               <FormControl>
@@ -289,7 +289,7 @@ function JobUpdateForm() {
           name="question3"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel className="text-base">
+              <FormLabel>
                 <h3>Question 3</h3>
               </FormLabel>
               <FormControl>
