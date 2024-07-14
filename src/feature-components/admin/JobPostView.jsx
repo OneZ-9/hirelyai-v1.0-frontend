@@ -45,6 +45,9 @@ function JobPostView() {
     <div>
       <div>
         <h2>{job?.title}</h2>
+        <span className="mx-2 text-base text-themecolor-darkblue dark:text-themecolor-lightblue text-slate-500 dark:text-slate-400">
+          {job?.company}
+        </span>
         <div className="flex items-center gap-x-4 mt-4 text-slate-500 dark:text-slate-400">
           <div className="flex items-center gap-x-2">
             <Briefcase />

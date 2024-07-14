@@ -9,7 +9,7 @@ function JobApplicationCard({ id, jobId, fullName }) {
       <Card className="bg-primary text-primary-foreground">
         <CardHeader className="flex-row justify-between items-center">
           <CardTitle>{fullName}</CardTitle>
-          <Button>View</Button>
+          <Button className="hover:underline">View</Button>
         </CardHeader>
       </Card>
     </Link>
