@@ -118,22 +118,24 @@ function JobApplicationForm() {
     <div className="mt-10 container">
       <div>
         <h2>{job?.title}</h2>
-        <span className="mx-2 text-sm text-slate-400">{job?.company}</span>
-        <div className="flex items-center gap-x-4 mt-4 text-slate-400">
+        <span className="mx-2 text-base text-themecolor-darkblue dark:text-themecolor-lightblue text-slate-500 dark:text-slate-400">
+          {job?.company}
+        </span>
+        <div className="flex items-center gap-x-4 mt-4 text-slate-500 dark:text-slate-400">
           <SubInfoTag icon={<Briefcase />} label={job?.type} />
           <SubInfoTag icon={<MapPin />} label={job?.location} />
 
-          <div className="flex items-center gap-2 ml-auto">
+          <div className="flex items-center gap-2 ml-auto text-slate-500 dark:text-slate-400">
             <span>Posted on:</span>
             <SubInfoTag icon={<CalendarDays />} label={job?.posted} />
           </div>
         </div>
       </div>
 
-      <div className="mt-8 py-4 text-slate-400">
+      <div className="mt-8 py-4 text-slate-500 dark:text-slate-400">
         <p>{job?.description}</p>
       </div>
-      <Separator />
+      <Separator className="mb-6 mt-2" />
 
       <Form {...form}>
         <form
