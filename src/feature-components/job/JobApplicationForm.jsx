@@ -103,16 +103,15 @@ function JobApplicationForm() {
     // for (const [key, value] of formData.entries()) {
     //   console.log(key, value);
     // }
-
     createJobApplication(formData);
   }
 
-  if (errorJob) return <ErrorComponent />;
   if (isLoadingJob || !isLoaded) return <Spinner />;
 
   if (!isSignedIn) {
     return <Navigate to="/sign-in" />;
   }
+  if (errorJob) return <ErrorComponent />;
 
   return (
     <div className="mt-10 container">
