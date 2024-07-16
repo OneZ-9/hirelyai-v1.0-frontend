@@ -1,4 +1,5 @@
 import Logo from "@/components/shared/Logo";
+import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
@@ -6,6 +7,8 @@ import { Link as ScrollLink } from "react-scroll";
 
 function Hero() {
   const { isLoaded, isSignedIn, user } = useUser();
+
+  if (!isLoaded) return <Spinner />;
 
   return (
     // <section className="py-8 flex items-center justify-center rounded-xl shadow-sm shadow-gray-900  border-white hero text-center">
@@ -25,7 +28,7 @@ function Hero() {
           Innovative AI platform that transforms the way you find and hire top
           talent.
         </p>
-        {!isSignedIn || !isLoaded ? (
+        {!isSignedIn ? (
           <div className="flex flex-col gap-y-4 items-center my-20">
             <Button
               asChild
