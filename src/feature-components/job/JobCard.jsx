@@ -26,7 +26,7 @@ function JobCard({ job, isAdmin }) {
     onError: (err) => toast.error(err.message),
   });
 
-  console.log(isAdmin);
+  // console.log(isAdmin);
 
   return (
     <div className="relative">
