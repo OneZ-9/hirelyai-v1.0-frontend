@@ -1,5 +1,5 @@
 // import useFetchJobs from "../../hooks/useFetchJobs";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getJobs } from "@/lib/services/api/jobs";
 
@@ -18,16 +18,19 @@ function JobPostsSection() {
   } = useQuery({ queryKey: ["jobs"], queryFn: getJobs });
   const [filteredJobs, setFilteredJobs] = useState([]);
 
-  function filterJobs(searchQuery) {
-    const filter = jobs?.filter(
-      (job) =>
-        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        job.location.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    return filter;
-  }
+  const filterJobs = useCallback(
+    (searchQuery) => {
+      const filter = jobs?.filter(
+        (job) =>
+          job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          job.type.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          job.location.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      return filter;
+    },
+    [jobs]
+  );
 
   if (isLoading) return <Spinner />;
   if (error) return <ErrorComponent />;
