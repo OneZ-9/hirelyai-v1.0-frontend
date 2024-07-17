@@ -13,12 +13,14 @@ function JobApplicationView() {
   // const { jobApplication, isLoadingJobApplication } =
   //   useFetchJobApplicationById();
   const { applicationId } = useParams();
-  const { isLoading: isLoadingJobApplication, data: jobApplication } = useQuery(
-    {
-      queryKey: ["jobApplication", applicationId],
-      queryFn: () => getJobApplicationById(applicationId),
-    }
-  );
+  const {
+    isLoading: isLoadingJobApplication,
+    data: jobApplication,
+    error,
+  } = useQuery({
+    queryKey: ["jobApplication", applicationId],
+    queryFn: () => getJobApplicationById(applicationId),
+  });
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -29,6 +31,7 @@ function JobApplicationView() {
   };
 
   if (isLoadingJobApplication) return <Spinner />;
+  if (error) throw error;
 
   return (
     <div className="flex flex-col gap-y-4">

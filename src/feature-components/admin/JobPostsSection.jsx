@@ -33,7 +33,7 @@ function JobPostsSection() {
   );
 
   if (isLoading) return <Spinner />;
-  if (error) return <ErrorComponent />;
+  if (error) throw error;
 
   return (
     <section className="py-8">

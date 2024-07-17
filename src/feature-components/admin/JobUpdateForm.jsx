@@ -28,7 +28,6 @@ import {
 } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import Spinner from "@/components/shared/Spinner";
-import ErrorComponent from "@/components/shared/ErrorComponent";
 import toast from "react-hot-toast";
 import SpinnerMini from "@/components/shared/SpinnerMini";
 
@@ -110,8 +109,8 @@ function JobUpdateForm() {
     });
   }
 
-  if (jobError) return <ErrorComponent />;
   if (isLoadingJob) return <Spinner />;
+  if (jobError) throw jobError;
 
   return (
     <Form {...form}>

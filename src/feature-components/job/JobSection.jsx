@@ -5,7 +5,6 @@ import { getJobs } from "@/lib/services/api/jobs";
 
 import JobCard from "../job/JobCard";
 import Spinner from "@/components/shared/Spinner";
-import ErrorComponent from "@/components/shared/ErrorComponent";
 import Message from "@/components/shared/Message";
 import SearchField from "@/components/shared/SearchField";
 
@@ -37,7 +36,7 @@ function JobSection() {
     [jobs]
   );
 
-  if (error) return <ErrorComponent />;
+  if (error) throw error;
 
   return (
     <section id="jobs" className="py-8 container">
@@ -57,7 +56,7 @@ function JobSection() {
         <Spinner />
       ) : (
         <div className="mt-4 flex flex-col gap-y-8">
-          {filteredJobs.length ? (
+          {filteredJobs?.length ? (
             filteredJobs?.map((job) => (
               <JobCard job={job} key={job._id} isAdmin={isAdmin} />
             ))

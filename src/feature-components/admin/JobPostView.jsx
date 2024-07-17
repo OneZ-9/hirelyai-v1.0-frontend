@@ -10,7 +10,6 @@ import { Separator } from "@/components/ui/separator";
 import { Briefcase, MapPin } from "lucide-react";
 import JobApplicationCard from "@/feature-components/admin/JobApplicationCard";
 import { getJobApplicationsForJob } from "@/lib/services/api/jobApplications";
-import ErrorComponent from "@/components/shared/ErrorComponent";
 import Message from "@/components/shared/Message";
 import SearchField from "@/components/shared/SearchField";
 
@@ -52,9 +51,8 @@ function JobPostView() {
     [jobApplications]
   );
 
-  if (jobError || jobApplicationsError) return <ErrorComponent />;
-
   if (isLoadingJob || isLoadingJobApplications) return <Spinner />;
+  if (jobError || jobApplicationsError) throw jobError || jobApplicationsError;
 
   return (
     <div>
