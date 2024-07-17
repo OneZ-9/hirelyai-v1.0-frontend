@@ -33,7 +33,7 @@ function JobCard({ job, isAdmin }) {
     <div className="relative">
       {!isAdmin && (
         <ShareButton
-          value={`http://${HOST_NAME}/job/${job._id}`}
+          value={`${HOST_NAME}/job/${job._id}`}
           className="absolute text-slate-500 dark:text-slate-400 top-5 right-4"
         />
       )}
