@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Briefcase, CalendarDays, MapPin, Pencil, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+const HOST_NAME = import.meta.env.VITE_HOST_NAME;
 
 function JobCard({ job, isAdmin }) {
   const queryClient = useQueryClient();
@@ -32,7 +33,7 @@ function JobCard({ job, isAdmin }) {
     <div className="relative">
       {!isAdmin && (
         <ShareButton
-          value={`http://localhost:5173/job/${job._id}`}
+          value={`http://${HOST_NAME}/job/${job._id}`}
           className="absolute text-slate-500 dark:text-slate-400 top-5 right-4"
         />
       )}
