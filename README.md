@@ -1,4 +1,4 @@
-# HirelyAi v1.0
+![image](https://github.com/user-attachments/assets/be785fa8-6cd6-4e8a-be59-69e818957893)# HirelyAi v1.0
 
 An enhanced hiring platform integrated with AI, offering a smarter and more efficient candidate filtering process for recruiters. For job seekers, find your dream job in just a few steps!
 
@@ -30,6 +30,10 @@ An enhanced hiring platform integrated with AI, offering a smarter and more effi
 
 ![image](https://github.com/user-attachments/assets/2528213d-8935-4fde-96b1-fdb8f7c0944a)
 
+⚡**Front-End Validation:** Built-in front-end validation ensures that all required information is provided and reduces the likelihood of missing valuable details.
+
+![image](https://github.com/user-attachments/assets/7001787e-daca-47a5-8412-efc59a85b01a)
+
 
 ⚡**Comprehensive Application Review:** Recruiters can view and assess job applications, including answers and resumes provided by applicants.
 
@@ -38,6 +42,12 @@ An enhanced hiring platform integrated with AI, offering a smarter and more effi
 ... Applications undergo an initial review by a custom-trained AI model, which rates them as good, moderate, or bad.
 
 ![image](https://github.com/user-attachments/assets/7d717b82-5961-4cd7-9ac2-9dd1dd625d1e)
+
+
+⚡**Action Notifications:** Stay informed with toast notifications for all significant actions and updates.
+
+![image](https://github.com/user-attachments/assets/7bd37248-7de7-4ba9-ad09-fb0d6556534b)
+
 
 
 
