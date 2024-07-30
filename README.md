@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/be785fa8-6cd6-4e8a-be59-69e818957893)# HirelyAi v1.0
+# HirelyAi v1.0
 
 An enhanced hiring platform integrated with AI, offering a smarter and more efficient candidate filtering process for recruiters. For job seekers, find your dream job in just a few steps!
 
