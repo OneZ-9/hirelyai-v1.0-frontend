@@ -2,11 +2,14 @@
 
 An enhanced hiring platform integrated with AI, offering a smarter and more efficient candidate filtering process for recruiters. For job seekers, find your dream job in just a few steps!
 
+Preview: https://hirelyai-chamod.netlify.app/
+
+<br>
+
 ## 🌟Technologies
 <img alt="Static Badge" src="https://img.shields.io/badge/React-black?logo=react"> <img alt="Static Badge" src="https://img.shields.io/badge/NodeJs-green?logo=node.js"> <img alt="Static Badge" src="https://img.shields.io/badge/Express-black?logo=express"> <img alt="Static Badge" src="https://img.shields.io/badge/MongoDB-darkgreen?logo=mongodb"> <img alt="Static Badge" src="https://img.shields.io/badge/Mongoose%20ODM-red?logo=mongoose"> <img alt="Static Badge" src="https://img.shields.io/badge/Zod-blue?logo=zod">
  <img alt="Static Badge" src="https://img.shields.io/badge/ClerkAuth-black?logo=Clerk"> <img alt="Static Badge" src="https://img.shields.io/badge/OpenAI%20API-black?logo=openai">
  <img alt="Static Badge" src="https://img.shields.io/badge/Tailwind%20CSS-white?logo=tailwindcss"> <img alt="Static Badge" src="https://img.shields.io/badge/shadcn%2Fui-black?logo=shadcnui"> <img alt="Static Badge" src="https://img.shields.io/badge/React%20Hot%20Toast-red?logo=React-Hot-Toast">
-
  
 <br>
 
