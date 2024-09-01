@@ -37,11 +37,13 @@ function JobPostsSection() {
 
   return (
     <section className="py-8">
-      <div className="flex items-center justify-between py-6">
-        <h2>Current Job Postings</h2>
+      <div className="flex max-sm:flex-col max-sm:gap-4 items-center justify-between py-6">
+        <h2 className="text-3xl sm:text-3xl md:text-4xl">
+          Current Job Postings
+        </h2>
 
         <SearchField
-          className="min-w-[420px]"
+          className="min-w-[250px] md:min-w-[320px] lg:min-w-[480px]"
           placeholder="Search jobs by job title, company, type or location"
           disabled={isLoading}
           filterFunction={filterJobs}
