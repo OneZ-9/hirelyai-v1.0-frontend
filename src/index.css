@@ -80,7 +80,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border p-0 m-0;
   }
   html {
     font-family: "Poppins", system-ui, sans-serif;
