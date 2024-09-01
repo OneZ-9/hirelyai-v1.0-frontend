@@ -10,6 +10,28 @@ function SearchField({
   disabled = false,
 }) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [responsivePlaceholder, setRresponsivePlaceholder] = useState("");
+
+  useEffect(() => {
+    const updatePlaceholder = () => {
+      if (window.innerWidth >= 1024) {
+        setRresponsivePlaceholder(placeholder);
+        // } else if (window.innerWidth >= 768) {
+        //   setRresponsivePlaceholder("Medium screen placeholder");
+      } else {
+        setRresponsivePlaceholder("Search here...");
+      }
+    };
+
+    // Set initial placeholder
+    updatePlaceholder();
+
+    // Add event listener
+    window.addEventListener("resize", updatePlaceholder);
+
+    // Clean up
+    return () => window.removeEventListener("resize", updatePlaceholder);
+  }, [placeholder]);
 
   useEffect(
     function () {
@@ -34,7 +56,7 @@ function SearchField({
       <Input
         type="text"
         className={className}
-        placeholder={placeholder}
+        placeholder={responsivePlaceholder}
         disabled={disabled}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

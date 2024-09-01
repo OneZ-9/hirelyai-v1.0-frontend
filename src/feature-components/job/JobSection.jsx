@@ -44,7 +44,7 @@ function JobSection() {
         <h2>Available Jobs</h2>
 
         <SearchField
-          className="min-w-[420px]"
+          className="min-w-[220px] md:min-w-[320px] lg:min-w-[420px]"
           placeholder="Search jobs by job title, company, type or location"
           disabled={isLoading}
           filterFunction={filterJobs}
