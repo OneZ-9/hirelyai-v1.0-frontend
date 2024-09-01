@@ -12,7 +12,7 @@ function Hero() {
 
   return (
     // <section className="py-8 flex items-center justify-center rounded-xl shadow-sm shadow-gray-900  border-white hero text-center">
-    <section className="flex items-center justify-center text-center h-screen">
+    <section className="flex items-center justify-center text-center h-screen max-lg:px-8">
       <div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl animate-slidein [--slidein-delay:400ms] opacity-0">
           Find your dream job with {""}
