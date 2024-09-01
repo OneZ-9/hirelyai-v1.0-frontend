@@ -11,11 +11,15 @@ function ShareButton({ value, className }) {
       <Button variant="share" className={className}>
         <span className="flex gap-1 items-center">
           {copied ? (
-            <CheckCheck className="w-4 h-4" />
+            <CheckCheck className="w-4 h-4 md:w-5 md:h-5" />
           ) : (
-            <Share2 className="w-4 h-4" />
+            <Share2 className="w-4 h-4 md:w-5 md:h-5" />
           )}
-          {copied ? "Link copied" : "Share this job"}
+          {copied ? (
+            <span className="max-sm:hidden">Link copied</span>
+          ) : (
+            <span className="max-sm:hidden">Share this job</span>
+          )}
         </span>
       </Button>
     </CopyToClipboard>
