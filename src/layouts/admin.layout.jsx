@@ -13,7 +13,7 @@ function AdminLayout() {
     return <Navigate to="/sign-in" />;
 
   return (
-    <div className="container">
+    <div>
       <AdminNav />
       <Outlet />
     </div>
