@@ -12,7 +12,10 @@ function Hero() {
 
   return (
     // <section className="py-8 flex items-center justify-center rounded-xl shadow-sm shadow-gray-900  border-white hero text-center">
-    <section className="flex items-center justify-center text-center h-screen max-lg:px-8">
+    <section
+      className="flex items-center justify-center text-center h-screen max-lg:px-8"
+      id="hero"
+    >
       <div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl animate-slidein [--slidein-delay:400ms] opacity-0">
           Find your dream job with {""}
@@ -57,6 +60,7 @@ function Hero() {
               smooth={true}
               duration={500}
               offset={-112}
+              isDynamic={true}
               className="text-lg sm:text-2xl md:text-3xl hover:underline text-themecolor-lightblue dark:text-themecolor-lightblue animate-slidein [--slidein-delay:900ms] opacity-0 text-slate-500 dark:text-slate-400 cursor-pointer"
             >
               Find out latest jobs{" "}
