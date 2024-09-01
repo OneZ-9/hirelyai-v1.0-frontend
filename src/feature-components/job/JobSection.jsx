@@ -39,12 +39,12 @@ function JobSection() {
   if (error) throw error;
 
   return (
-    <section id="jobs" className="py-8 container">
-      <div className="flex items-center justify-between py-6">
-        <h2>Available Jobs</h2>
+    <section id="jobs" className="sm:py-8 max-lg:px-4">
+      <div className="flex max-sm:flex-col max-sm:gap-4 items-center justify-between py-6">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl">Available Jobs</h2>
 
         <SearchField
-          className="min-w-[220px] md:min-w-[320px] lg:min-w-[420px]"
+          className="min-w-[250px] md:min-w-[320px] lg:min-w-[420px]"
           placeholder="Search jobs by job title, company, type or location"
           disabled={isLoading}
           filterFunction={filterJobs}
