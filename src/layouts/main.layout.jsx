@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
   return (
-    <div>
+    <div className="flex flex-col">
       <Navigation />
 
       <Outlet />
