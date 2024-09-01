@@ -82,13 +82,13 @@ function JobCreateForm() {
 
   return (
     <Form {...form}>
-      <form className="py-8" onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="py-6 max-lg:px-4">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Title</h3>
               </FormLabel>
               <FormControl>
@@ -110,7 +110,7 @@ function JobCreateForm() {
           name="company"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Company</h3>
               </FormLabel>
               <FormControl>
@@ -132,7 +132,7 @@ function JobCreateForm() {
           name="description"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Description</h3>
               </FormLabel>
               <FormControl>
@@ -149,13 +149,13 @@ function JobCreateForm() {
           )}
         />
 
-        <div className="mt-2 grid grid-cols-2 gap-x-5">
+        <div className="mt-2 grid grid-col-1 sm:grid-cols-2 gap-x-5">
           <FormField
             control={form.control}
             name="location"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel>
+                <FormLabel className="text-xs sm:text-sm md:text-base">
                   <h3>Location</h3>
                 </FormLabel>
                 <FormControl>
@@ -177,7 +177,7 @@ function JobCreateForm() {
             name="type"
             render={({ field }) => (
               <FormItem className="mt-6">
-                <FormLabel>
+                <FormLabel className="text-xs sm:text-sm md:text-base">
                   <h3>Type</h3>
                 </FormLabel>
                 <Select
@@ -214,7 +214,7 @@ function JobCreateForm() {
           name="question1"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Question 1</h3>
               </FormLabel>
               <FormControl>
@@ -235,7 +235,7 @@ function JobCreateForm() {
           name="question2"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Question 2</h3>
               </FormLabel>
               <FormControl>
@@ -256,7 +256,7 @@ function JobCreateForm() {
           name="question3"
           render={({ field }) => (
             <FormItem className="mt-6">
-              <FormLabel>
+              <FormLabel className="text-xs sm:text-sm md:text-base">
                 <h3>Question 3</h3>
               </FormLabel>
               <FormControl>
@@ -272,18 +272,24 @@ function JobCreateForm() {
           )}
         />
 
-        <div className="flex items-center gap-x-4 mt-8 mb-12 justify-end">
-          <Button type="submit" variant="default" disabled={isCreatingJob}>
+        <div className="flex flex-col gap-y-4 items-center mt-8 sm:flex-row sm:gap-x-4 mb-12 sm:justify-end">
+          <Button
+            type="submit"
+            variant="default"
+            disabled={isCreatingJob}
+            className="w-full sm:w-fit max-sm:text-xs"
+          >
             {isCreatingJob && (
-              <span>
+              <span className="flex items-center gap-2">
                 <SpinnerMini />
+                Posting
               </span>
             )}
-            Create Job
+            Post Job
           </Button>
 
           <Button
-            className="w-fit"
+            className="w-full sm:w-fit max-sm:text-xs"
             variant="outline"
             disabled={isCreatingJob}
             onClick={() => {

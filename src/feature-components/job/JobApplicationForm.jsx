@@ -256,7 +256,7 @@ function JobApplicationForm() {
               className="w-full sm:w-fit max-sm:text-xs"
             >
               {isSubmittingJobApplication ? (
-                <span className="flex items-center gap-2 ">
+                <span className="flex items-center gap-2">
                   <SpinnerMini />
                   Submitting
                 </span>
