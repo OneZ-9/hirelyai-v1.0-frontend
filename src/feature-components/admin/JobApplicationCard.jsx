@@ -8,8 +8,10 @@ function JobApplicationCard({ id, jobId, fullName }) {
     <Link to={`/admin/job/${jobId}/application/${id}`}>
       <Card className="bg-primary text-primary-foreground">
         <CardHeader className="flex-row justify-between items-center">
-          <CardTitle>{fullName}</CardTitle>
-          <Button className="hover:underline">View</Button>
+          <CardTitle className="max-sm:text-lg md:text-2xl max-w-[80%]">
+            {fullName}
+          </CardTitle>
+          <Button className="max-sm:text-xs hover:underline">View</Button>
         </CardHeader>
       </Card>
     </Link>

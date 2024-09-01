@@ -36,23 +36,25 @@ function JobApplicationView() {
   return (
     <div className="flex flex-col gap-y-4">
       <Card className="bg-primary">
-        <CardHeader className="flex-row items-center gap-x-4">
-          <CardTitle className="text-primary-foreground">
-            {jobApplication?.fullName}
-          </CardTitle>
-          <Badge
-            className={cn({
-              "bg-red-500":
-                jobApplication?.rating?.toLocaleLowerCase() === "bad",
-              "bg-orange-400":
-                jobApplication?.rating?.toLocaleLowerCase() === "moderate",
-              "bg-teal-500":
-                jobApplication?.rating?.toLocaleLowerCase() === "good",
-            })}
-          >
-            {jobApplication?.rating}
-          </Badge>
-          <span className="px-4 ml-auto text-primary-foreground">
+        <CardHeader className="flex flex-col sm:flex-row">
+          <div className="flex justify-between items-center sm:gap-x-4">
+            <CardTitle className="text-primary-foreground max-sm:max-w-[80%] text-xl md:text-2xl">
+              {jobApplication?.fullName}
+            </CardTitle>
+            <Badge
+              className={cn({
+                "bg-red-500":
+                  jobApplication?.rating?.toLocaleLowerCase() === "bad",
+                "bg-orange-400":
+                  jobApplication?.rating?.toLocaleLowerCase() === "moderate",
+                "bg-teal-500":
+                  jobApplication?.rating?.toLocaleLowerCase() === "good",
+              })}
+            >
+              {jobApplication?.rating}
+            </Badge>{" "}
+          </div>
+          <span className="m-0 sm:ml-auto  text-primary-foreground text-start text-xs md:text-base">
             Sumbitted on: {jobApplication?.submitted}
           </span>
         </CardHeader>
@@ -63,11 +65,11 @@ function JobApplicationView() {
           return <p key={i}>{answer}</p>;
         })}
       </Card>
-      <div className="flex items-center gap-6 mb-12 justify-end">
+      <div className="flex flex-col gap-y-4 items-center mt-10 sm:flex-row sm:gap-x-4 mb-12 sm:justify-end">
+        <Button onClick={handleDownload}>Download Resume</Button>
         <Button variant="link" asChild>
           <Link to={"/admin/jobs"}>Back</Link>
         </Button>
-        <Button onClick={handleDownload}>Download Resume</Button>
       </div>
     </div>
   );
