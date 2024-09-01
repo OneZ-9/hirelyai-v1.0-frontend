@@ -14,17 +14,17 @@ function Hero() {
     // <section className="py-8 flex items-center justify-center rounded-xl shadow-sm shadow-gray-900  border-white hero text-center">
     <section className="flex items-center justify-center text-center h-screen">
       <div>
-        <h1 className="animate-slidein [--slidein-delay:400ms] opacity-0">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl animate-slidein [--slidein-delay:400ms] opacity-0">
           Find your dream job with {""}
           <span className="animate-slidein [--slidein-delay:500ms] opacity-0">
             <Logo />
           </span>
         </h1>
-        <p className="animate-slidein [--slidein-delay:600ms] opacity-0 text-base text-slate-500 dark:text-slate-400">
+        <p className="text-xs sm:text-sm md:text-base animate-slidein [--slidein-delay:600ms] opacity-0  text-slate-500 dark:text-slate-400">
           Explore endless opportunities and take the next step towards your
           professional growth. Your future starts here!
         </p>
-        <p className="animate-slidein [--slidein-delay:700ms] opacity-0 text-base text-slate-500 dark:text-slate-400 ">
+        <p className="text-xs sm:text-sm md:text-base animate-slidein [--slidein-delay:700ms] opacity-0  text-slate-500 dark:text-slate-400 ">
           Innovative AI platform that transforms the way you find and hire top
           talent.
         </p>
@@ -49,7 +49,7 @@ function Hero() {
           </div>
         ) : (
           <div className="flex flex-col my-24 gap-6 items-center text-slate-500 dark:text-slate-200 animate-slidein [--slidein-delay:900ms] opacity-0">
-            <span className="text-2xl">
+            <span className="text-lg sm:text-xl md:text-2xl">
               Hello! {user.firstName}, {""}
             </span>
             <ScrollLink
@@ -57,9 +57,12 @@ function Hero() {
               smooth={true}
               duration={500}
               offset={-112}
-              className="text-3xl hover:underline text-themecolor-lightblue dark:text-themecolor-lightblue animate-slidein [--slidein-delay:900ms] opacity-0 text-slate-500 dark:text-slate-400 cursor-pointer"
+              className="text-lg sm:text-2xl md:text-3xl hover:underline text-themecolor-lightblue dark:text-themecolor-lightblue animate-slidein [--slidein-delay:900ms] opacity-0 text-slate-500 dark:text-slate-400 cursor-pointer"
             >
-              Find out latest jobs <span className="ml-2 text-2xl">&darr;</span>
+              Find out latest jobs{" "}
+              <span className="ml-2 text-lg sm:text-xl md:text-2xl">
+                &darr;
+              </span>
             </ScrollLink>
           </div>
         )}
