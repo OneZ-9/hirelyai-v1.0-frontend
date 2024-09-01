@@ -113,10 +113,10 @@ function JobApplicationForm() {
   if (errorJob) throw errorJob;
 
   return (
-    <div className="mt-10 container">
+    <div className="mt-10 max-lg:px-4">
       <div>
-        <h2>{job?.title}</h2>
-        <span className="mx-2 text-base text-themecolor-darkblue dark:text-themecolor-lightblue text-slate-500 dark:text-slate-400">
+        <h2 className="max-sm:text-2xl">{job?.title}</h2>
+        <span className="mx-2 max-sm:text-md text-themecolor-darkblue dark:text-themecolor-lightblue text-slate-500 dark:text-slate-400">
           {job?.company}
         </span>
         <div className="flex items-center gap-x-4 mt-4 text-slate-500 dark:text-slate-400">
@@ -124,13 +124,13 @@ function JobApplicationForm() {
           <SubInfoTag icon={<MapPin />} label={job?.location} />
 
           <div className="flex items-center gap-2 ml-auto text-slate-500 dark:text-slate-400">
-            <span>Posted on:</span>
+            <span className="max-sm:hidden max-md:text-xs">Posted on:</span>
             <SubInfoTag icon={<CalendarDays />} label={job?.posted} />
           </div>
         </div>
       </div>
 
-      <div className="mt-8 py-4 text-slate-500 dark:text-slate-400">
+      <div className="text-xs sm:text-sm md:text-base mt-8 py-4 text-slate-500 dark:text-slate-400">
         <p>{job?.description}</p>
       </div>
       <Separator className="mb-6 mt-2" />
@@ -145,7 +145,9 @@ function JobApplicationForm() {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base">Full Name</FormLabel>
+                <FormLabel className="text-xs sm:text-sm md:text-base">
+                  Full Name
+                </FormLabel>
                 <FormControl>
                   <Input
                     className="mt-2 h-10"
@@ -164,7 +166,7 @@ function JobApplicationForm() {
             name="answer1"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel className="text-base">
+                <FormLabel className="text-xs sm:text-sm md:text-base">
                   {job?.questions?.at(0)}
                 </FormLabel>
                 <FormControl>
@@ -185,7 +187,7 @@ function JobApplicationForm() {
             name="answer2"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel className="text-base">
+                <FormLabel className="text-xs sm:text-sm md:text-base">
                   {job?.questions?.at(1)}
                 </FormLabel>
                 <FormControl>
@@ -206,7 +208,7 @@ function JobApplicationForm() {
             name="answer3"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel className="text-base">
+                <FormLabel className="text-xs sm:text-sm md:text-base">
                   {job?.questions?.at(2)}
                 </FormLabel>
                 <FormControl>
@@ -227,16 +229,18 @@ function JobApplicationForm() {
             name="resume"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-base">Upload resume</FormLabel>
+                <FormLabel className="text-xs sm:text-sm md:text-base">
+                  Upload resume
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="file"
                     accept=".pdf"
-                    className="mt-2 h-10 w-auto"
+                    className="mt-2 h-10 w-[250px] sm:w-auto text-xs sm:text-sm md:text-base"
                     onChange={(e) => field.onChange(e.target.files)}
                   />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className="max-sm:text-[0.6rem]">
                   *only accept pdf format and maximum file size 10MB.
                 </FormDescription>
                 <FormMessage />
@@ -244,15 +248,15 @@ function JobApplicationForm() {
             )}
           />
 
-          <div className="flex items-center gap-x-4 mb-12 justify-end">
+          <div className="flex flex-col gap-y-4 items-center mt-8 sm:flex-row sm:gap-x-4 mb-12 sm:justify-end">
             <Button
               type="submit"
               variant="default"
               // className="mt-8 bg-card text-card-foreground w-fit"
-              className="mt-8 w-fit"
+              className="w-full sm:w-fit max-sm:text-xs"
             >
               {isSubmittingJobApplication ? (
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 ">
                   <SpinnerMini />
                   Submitting
                 </span>
@@ -262,7 +266,7 @@ function JobApplicationForm() {
             </Button>
 
             <Button
-              className="mt-8 w-fit"
+              className="w-full sm:w-fit max-sm:text-xs"
               variant="outline"
               onClick={() => {
                 form.reset();

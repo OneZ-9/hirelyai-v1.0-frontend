@@ -87,7 +87,7 @@ function JobCard({ job, isAdmin }) {
             />
 
             <div className="flex items-center gap-2 ml-auto">
-              <span className=" max-sm:hidden max-md:text-xs">Posted on:</span>
+              <span className="max-sm:hidden max-md:text-xs">Posted on:</span>
               <SubInfoTag
                 icon={<CalendarDays className="w-4 h-4" />}
                 label={job.posted}
